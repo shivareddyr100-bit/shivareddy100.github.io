@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shiva Prasad Reddy — Data Scientist Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                        oswald: ['Oswald', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #050505; color: #fff; overflow-x: hidden; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0A0A0A; }
+        ::-webkit-scrollbar-thumb { background: #2563EB; border-radius: 3px; }
+
+        /* Animations */
+        @keyframes fadeInUpBlur {
+            0% { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+            100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+        @keyframes slideInLeft {
+            0% { opacity: 0; transform: translateX(-40px); filter: blur(6px); }
+            100% { opacity: 1; transform: translateX(0); filter: blur(0); }
+        }
+        @keyframes slideInRight {
+            0% { opacity: 0; transform: translateX(40px); filter: blur(6px); }
+            100% { opacity: 1; transform: translateX(0); filter: blur(0); }
+        }
+        @keyframes scaleIn {
+            0% { opacity: 0; transform: scale(0.9); filter: blur(6px); }
+            100% { opacity: 1; transform: scale(1); filter: blur(0); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59,130,246,0.2); }
+            50% { box-shadow: 0 0 40px rgba(59,130,246,0.4); }
+        }
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes typewriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink {
+            0%, 100% { border-color: transparent; }
+            50% { border-color: #3B82F6; }
+        }
+        @keyframes orbit {
+            0% { transform: rotate(0deg) translateX(120px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(120px) rotate(-360deg); }
+        }
+        @keyframes spin-slow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes ping {
+            75%, 100% { transform: scale(2); opacity: 0; }
+        }
+        @keyframes countUp {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in { animation: fadeInUpBlur 0.8s cubic-bezier(0.2,0.8,0.2,1) both; }
+        .animate-left { animation: slideInLeft 0.8s cubic-bezier(0.2,0.8,0.2,1) both; }
+        .animate-right { animation: slideInRight 0.8s cubic-bezier(0.2,0.8,0.2,1) both; }
+        .animate-scale { animation: scaleIn 0.8s cubic-bezier(0.2,0.8,0.2,1) both; }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+        .delay-500 { animation-delay: 500ms; }
+        .delay-600 { animation-delay: 600ms; }
+        .delay-700 { animation-delay: 700ms; }
+        .delay-800 { animation-delay: 800ms; }
+        .delay-1000 { animation-delay: 1000ms; }
+        .delay-1200 { animation-delay: 1200ms; }
+
+        /* Hidden state for scroll-triggered animations */
+        .reveal { opacity: 0; transform: translateY(30px); filter: blur(8px); transition: all 0.8s cubic-bezier(0.2,0.8,0.2,1); }
+        .reveal.visible { opacity: 1; transform: translateY(0); filter: blur(0); }
+        .reveal-left { opacity: 0; transform: translateX(-40px); filter: blur(6px); transition: all 0.8s cubic-bezier(0.2,0.8,0.2,1); }
+        .reveal-left.visible { opacity: 1; transform: translateX(0); filter: blur(0); }
+        .reveal-right { opacity: 0; transform: translateX(40px); filter: blur(6px); transition: all 0.8s cubic-bezier(0.2,0.8,0.2,1); }
+        .reveal-right.visible { opacity: 1; transform: translateX(0); filter: blur(0); }
+        .reveal-scale { opacity: 0; transform: scale(0.9); filter: blur(6px); transition: all 0.8s cubic-bezier(0.2,0.8,0.2,1); }
+        .reveal-scale.visible { opacity: 1; transform: scale(1); filter: blur(0); }
+
+        /* Star background */
+        .stars-bg {
+            background-image:
+                radial-gradient(1px 1px at 50px 80px, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1px 1px at 150px 30px, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1px 1px at 250px 120px, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1px 1px at 350px 60px, rgba(255,255,255,0.2), transparent),
+                radial-gradient(1px 1px at 450px 140px, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1px 1px at 550px 20px, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1px 1px at 650px 100px, rgba(255,255,255,0.2), transparent),
+                radial-gradient(1px 1px at 100px 180px, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1px 1px at 300px 200px, rgba(255,255,255,0.2), transparent),
+                radial-gradient(1px 1px at 500px 180px, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1px 1px at 700px 50px, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1px 1px at 200px 250px, rgba(255,255,255,0.2), transparent),
+                radial-gradient(1px 1px at 600px 230px, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1.5px 1.5px at 400px 270px, rgba(59,130,246,0.5), transparent),
+                radial-gradient(1.5px 1.5px at 100px 300px, rgba(59,130,246,0.4), transparent),
+                radial-gradient(1px 1px at 750px 200px, rgba(255,255,255,0.3), transparent),
+                radial-gradient(1px 1px at 50px 350px, rgba(255,255,255,0.2), transparent),
+                radial-gradient(1px 1px at 850px 120px, rgba(255,255,255,0.3), transparent);
+            background-size: 900px 400px;
+        }
+
+        /* Grid background */
+        .grid-bg {
+            background-image:
+                linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(135deg, #60A5FA, #A855F7, #F97316);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 4s ease infinite;
+        }
+
+        /* Card glow on hover */
+        .card-glow {
+            position: relative;
+            overflow: hidden;
+        }
+        .card-glow::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59,130,246,0.06), transparent 40%);
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .card-glow:hover::before { opacity: 1; }
+
+        /* Skill tag */
+        .skill-tag {
+            background: rgba(59,130,246,0.08);
+            border: 1px solid rgba(59,130,246,0.2);
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            color: #60A5FA;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        .skill-tag:hover {
+            background: rgba(59,130,246,0.2);
+            border-color: rgba(59,130,246,0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(59,130,246,0.15);
+        }
+
+        /* Project card */
+        .project-card {
+            background: #0A0A0A;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.2,0.8,0.2,1);
+        }
+        .project-card:hover {
+            border-color: rgba(59,130,246,0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px -15px rgba(59,130,246,0.15);
+        }
+        .project-card .project-number {
+            font-family: 'Oswald', sans-serif;
+            font-size: 8rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(59,130,246,0.05);
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            transition: color 0.4s;
+        }
+        .project-card:hover .project-number { color: rgba(59,130,246,0.1); }
+
+        /* Experience timeline */
+        .timeline-dot {
+            width: 16px; height: 16px;
+            background: #2563EB;
+            border-radius: 50%;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .timeline-dot::after {
+            content: '';
+            position: absolute;
+            top: 16px; left: 50%;
+            transform: translateX(-50%);
+            width: 2px; height: calc(100% + 32px);
+            background: linear-gradient(to bottom, rgba(37,99,235,0.5), rgba(37,99,235,0.05));
+        }
+
+        /* Nav active */
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 50%; transform: translateX(-50%);
+            width: 0; height: 2px;
+            background: #3B82F6;
+            transition: width 0.3s;
+            border-radius: 1px;
+        }
+        .nav-link.active::after { width: 100%; }
+
+        /* Floating elements */
+        .float-1 { animation: float 4s ease-in-out infinite; }
+        .float-2 { animation: float 5s ease-in-out infinite 1s; }
+        .float-3 { animation: float 6s ease-in-out infinite 2s; }
+
+        /* Orbiting dots */
+        .orbit-container { position: relative; width: 260px; height: 260px; }
+        .orbit-dot {
+            position: absolute;
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            top: 50%; left: 50%;
+            margin: -4px 0 0 -4px;
+        }
+        .orbit-dot:nth-child(1) { animation: orbit 8s linear infinite; background: #3B82F6; }
+        .orbit-dot:nth-child(2) { animation: orbit 8s linear infinite 2.67s; background: #A855F7; }
+        .orbit-dot:nth-child(3) { animation: orbit 8s linear infinite 5.33s; background: #F97316; }
+
+        /* Accordion */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.2,0.8,0.2,1);
+        }
+        .accordion-content.open { max-height: 2000px; }
+        .accordion-icon { transition: transform 0.3s; }
+        .accordion-icon.open { transform: rotate(180deg); }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(10,10,10,0.95);
+            border: 1px solid rgba(59,130,246,0.3);
+            backdrop-filter: blur(12px);
+            padding: 12px 24px;
+            border-radius: 12px;
+            z-index: 9999;
+            transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1), opacity 0.4s;
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+        /* Progress bars */
+        .progress-bar {
+            height: 4px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #2563EB, #22D3EE);
+            border-radius: 2px;
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.2,0.8,0.2,1);
+        }
+
+        /* Section divider */
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(59,130,246,0.3), transparent);
+        }
+
+        /* Scroll progress */
+        #scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 2px;
+            background: linear-gradient(to right, #2563EB, #22D3EE, #A855F7);
+            z-index: 10000;
+            transition: width 0.1s;
+        }
+
+        /* Mobile nav */
+        .mobile-nav {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1);
+        }
+        .mobile-nav.open { transform: translateX(0); }
+
+        /* Magnetic button effect area */
+        .magnetic-area {
+            position: relative;
+            display: inline-flex;
+        }
+
+        /* Tooltip */
+        .tooltip-text {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10,10,10,0.95);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            transition: all 0.2s;
+            z-index: 50;
+        }
+        .tooltip-wrap:hover .tooltip-text { visibility: visible; opacity: 1; }
+
+        /* Selection */
+        ::selection { background: rgba(59,130,246,0.3); color: #fff; }
+
+        /* Typing effect */
+        .typing-text {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #3B82F6;
+            animation: typewriter 2s steps(30) 0.5s both, blink 0.8s step-end infinite;
+        }
+
+        /* Smooth scroll */
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body class="font-inter">
+
+<!-- Scroll Progress Bar -->
+<div id="scroll-progress" style="width: 0%;"></div>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast">
+    <i data-lucide="check-circle" class="w-4 h-4 text-green-400"></i>
+    <span id="toast-message" class="text-sm text-neutral-200">Copied!</span>
+</div>
+
+<!-- Navigation -->
+<nav id="navbar" class="fixed top-4 left-1/2 -translate-x-1/2 z-[1000] w-[95%] max-w-5xl">
+    <div class="bg-[#0A0A0A]/80 backdrop-blur-xl border border-white/[0.08] rounded-2xl px-4 md:px-6 py-3 flex items-center justify-between">
+        <a href="#hero" class="flex items-center gap-2 group">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                <span class="text-white font-oswald font-bold text-sm">SP</span>
+            </div>
+            <span class="text-white font-medium text-sm hidden sm:block">Shiva Prasad Reddy</span>
+        </a>
+        <div class="hidden md:flex items-center gap-1">
+            <a href="#hero" class="nav-link active px-3 py-2 text-sm text-neutral-400 hover:text-white transition-colors rounded-lg hover:bg-white/5" data-section="hero">Home</a>
+            <a href="#about" class="nav-link px-3 py-2 text-sm text-neutral-400 hover:text-white transition-colors rounded-lg hover:bg-white/5" data-section="about">About</a>
+            <a href="#skills" class="nav-link px-3 py-2 text-sm text-neutral-400 hover:text-white transition-colors rounded-lg hover:bg-white/5" data-section="skills">Skills</a>
+            <a href="#experience" class="nav-link px-3 py-2 text-sm text-neutral-400 hover:text-white transition-colors rounded-lg hover:bg-white/5" data-section="experience">Experience</a>
+            <a href="#projects" class="nav-link px-3 py-2 text-sm text-neutral-400 hover:text-white transition-colors rounded-lg hover:bg-white/5" data-section="projects">Projects</a>
+            <a href="#education" class="nav-link px-3 py-2 text-sm text-neutral-400 hover:text-white transition-colors rounded-lg hover:bg-white/5" data-section="education">Education</a>
+        </div>
+        <div class="flex items-center gap-3">
+            <a href="mailto:Shivareddyr100@gmail.com" class="hidden sm:flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium rounded-xl transition-all hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(37,99,235,0.3)]">
+                <i data-lucide="mail" class="w-4 h-4"></i>
+                Contact
+            </a>
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-neutral-400 hover:text-white transition-colors">
+                <i data-lucide="menu" class="w-5 h-5"></i>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<!-- Mobile Navigation -->
+<div id="mobile-nav" class="mobile-nav fixed inset-0 z-[1001] bg-[#050505]/95 backdrop-blur-xl flex flex-col items-center justify-center gap-6">
+    <button id="mobile-close-btn" class="absolute top-6 right-6 p-2 text-neutral-400 hover:text-white transition-colors">
+        <i data-lucide="x" class="w-6 h-6"></i>
+    </button>
+    <a href="#hero" class="mobile-nav-link text-2xl font-light text-neutral-300 hover:text-white transition-colors">Home</a>
+    <a href="#about" class="mobile-nav-link text-2xl font-light text-neutral-300 hover:text-white transition-colors">About</a>
+    <a href="#skills" class="mobile-nav-link text-2xl font-light text-neutral-300 hover:text-white transition-colors">Skills</a>
+    <a href="#experience" class="mobile-nav-link text-2xl font-light text-neutral-300 hover:text-white transition-colors">Experience</a>
+    <a href="#projects" class="mobile-nav-link text-2xl font-light text-neutral-300 hover:text-white transition-colors">Projects</a>
+    <a href="#education" class="mobile-nav-link text-2xl font-light text-neutral-300 hover:text-white transition-colors">Education</a>
+    <a href="mailto:Shivareddyr100@gmail.com" class="mt-4 flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-xl transition-all">
+        <i data-lucide="mail" class="w-5 h-5"></i>
+        Contact Me
+    </a>
+</div>
+
+<!-- ==================== HERO SECTION ==================== -->
+<section id="hero" class="relative min-h-screen flex items-center overflow-hidden stars-bg">
+    <!-- Background Glows -->
+    <div class="absolute top-[-200px] left-[-200px] w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] float-1"></div>
+    <div class="absolute bottom-[-200px] right-[-200px] w-[500px] h-[500px] bg-purple-600/8 rounded-full blur-[100px] float-2"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-orange-500/5 rounded-full blur-[100px] float-3"></div>
+
+    <!-- Grid overlay -->
+    <div class="absolute inset-0 grid-bg opacity-50"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-20 w-full">
+        <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            <!-- Left Content -->
+            <div class="flex-1 text-center lg:text-left">
+                <!-- Status badge -->
+                <div class="animate-in delay-100 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] mb-8">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" style="animation: ping 1s cubic-bezier(0,0,0.2,1) infinite;"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
+                    <span class="text-xs text-neutral-400 font-medium">Available for opportunities</span>
+                </div>
+
+                <!-- Name -->
+                <h1 class="animate-in delay-200 font-oswald font-light text-5xl sm:text-6xl lg:text-[76px] leading-[1.05] tracking-tight mb-4">
+                    SHIVA PRASAD<br>
+                    <span class="gradient-text">REDDY</span>
+                </h1>
+
+                <!-- Title with typing effect -->
+                <div class="animate-in delay-300 mb-6">
+                    <span class="typing-text text-lg md:text-xl text-blue-400 font-medium">Data Scientist</span>
+                </div>
+
+                <!-- Location & Contact -->
+                <div class="animate-in delay-400 flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-8 text-sm text-neutral-400">
+                    <span class="flex items-center gap-1.5">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-blue-400/70"></i>
+                        Bengaluru, India
+                    </span>
+                    <span class="hidden sm:block w-1 h-1 rounded-full bg-neutral-600"></span>
+                    <button onclick="copyToClipboard('7899658797', 'Phone number copied!')" class="flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer">
+                        <i data-lucide="phone" class="w-4 h-4 text-blue-400/70"></i>
+                        7899658797
+                    </button>
+                    <span class="hidden sm:block w-1 h-1 rounded-full bg-neutral-600"></span>
+                    <button onclick="copyToClipboard('Shivareddyr100@gmail.com', 'Email copied!')" class="flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer">
+                        <i data-lucide="mail" class="w-4 h-4 text-blue-400/70"></i>
+                        Shivareddyr100@gmail.com
+                    </button>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="animate-in delay-500 flex flex-wrap items-center justify-center lg:justify-start gap-4">
+                    <a href="#projects" class="group relative px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-xl transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] flex items-center gap-2">
+                        View Projects
+                        <i data-lucide="arrow-down-right" class="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5"></i>
+                    </a>
+                    <a href="#experience" class="px-6 py-3 border border-white/10 hover:border-white/20 hover:bg-white/5 text-white font-medium rounded-xl transition-all flex items-center gap-2">
+                        <i data-lucide="briefcase" class="w-4 h-4"></i>
+                        Experience
+                    </a>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="animate-in delay-700 mt-12 flex items-center justify-center lg:justify-start gap-8">
+                    <div class="text-center">
+                        <div class="font-oswald text-3xl font-light text-white" data-count="3">0</div>
+                        <div class="text-[11px] text-neutral-500 uppercase tracking-wider mt-1">Years Exp.</div>
+                    </div>
+                    <div class="w-px h-10 bg-white/10"></div>
+                    <div class="text-center">
+                        <div class="font-oswald text-3xl font-light text-white" data-count="3">0</div>
+                        <div class="text-[11px] text-neutral-500 uppercase tracking-wider mt-1">Projects</div>
+                    </div>
+                    <div class="w-px h-10 bg-white/10"></div>
+                    <div class="text-center">
+                        <div class="font-oswald text-3xl font-light text-white" data-count="20">0</div>
+                        <div class="text-[11px] text-neutral-500 uppercase tracking-wider mt-1">Technologies</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right - Orbiting Visual -->
+            <div class="flex-shrink-0 animate-scale delay-500">
+                <div class="orbit-container">
+                    <!-- Center avatar -->
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-gradient-to-br from-blue-600/20 to-purple-600/20 border border-white/10 flex items-center justify-center" style="animation: pulse-glow 3s ease-in-out infinite;">
+                        <div class="w-24 h-24 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                            <span class="font-oswald text-2xl font-bold text-white">SP</span>
+                        </div>
+                    </div>
+                    <!-- Orbiting dots -->
+                    <div class="orbit-dot"></div>
+                    <div class="orbit-dot"></div>
+                    <div class="orbit-dot"></div>
+                    <!-- Orbit ring -->
+                    <div class="absolute inset-0 rounded-full border border-white/[0.04]" style="animation: spin-slow 30s linear infinite;"></div>
+                    <div class="absolute inset-6 rounded-full border border-white/[0.03]" style="animation: spin-slow 25s linear infinite reverse;"></div>
+                    <!-- Floating labels -->
+                    <div class="absolute -top-2 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/[0.08] text-[10px] text-blue-400 font-medium float-1">ML</div>
+                    <div class="absolute top-1/2 -right-8 -translate-y-1/2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/[0.08] text-[10px] text-purple-400 font-medium float-2">GenAI</div>
+                    <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/[0.08] text-[10px] text-orange-400 font-medium float-3">RAG</div>
+                    <div class="absolute top-1/2 -left-10 -translate-y-1/2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/[0.08] text-[10px] text-cyan-400 font-medium float-1">NLP</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-in delay-1200 flex flex-col items-center gap-2">
+        <span class="text-[10px] uppercase tracking-[0.2em] text-neutral-500">Scroll</span>
+        <div class="w-5 h-8 rounded-full border border-white/10 flex items-start justify-center p-1">
+            <div class="w-1 h-2 rounded-full bg-blue-400" style="animation: float 2s ease-in-out infinite;"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== ABOUT / PROFESSIONAL SUMMARY ==================== -->
+<section id="about" class="relative py-24 overflow-hidden">
+    <div class="absolute top-0 left-0 right-0 section-divider"></div>
+    <div class="absolute top-1/2 right-0 w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-[120px]"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
+        <!-- Section Header -->
+        <div class="reveal mb-16">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-blue-600/10 border border-blue-600/20 flex items-center justify-center">
+                    <i data-lucide="user" class="w-5 h-5 text-blue-400"></i>
+                </div>
+                <span class="text-[11px] uppercase tracking-[0.2em] text-blue-400 font-medium">Professional Summary</span>
+            </div>
+            <h2 class="font-oswald font-light text-3xl md:text-4xl tracking-tight">
+                About <span class="text-blue-400">Me</span>
+            </h2>
+        </div>
+
+        <div class="grid lg:grid-cols-5 gap-12">
+            <!-- Summary Text -->
+            <div class="lg:col-span-3 reveal-left" style="transition-delay: 100ms;">
+                <div class="relative p-8 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow">
+                    <div class="absolute top-0 left-0 w-full h-1 rounded-t-2xl bg-gradient-to-r from-blue-600 via-purple-600 to-orange-500 opacity-60"></div>
+                    <p class="text-neutral-300 leading-relaxed text-[15px]">
+                        Data Scientist with almost 3 years of experience building Machine Learning, Generative AI, and Agentic AI solutions for retail and analytics domains. Skilled in end-to-end model development, REST API deployment, LLM applications, and intelligent automation using Python, Scikit-learn, and LangChain. Experienced in building scalable ML pipelines, handling imbalanced datasets, and developing AI agents with Retrieval-Augmented Generation (RAG) and multi-agent architectures. Focused on delivering data-driven, AI-powered solutions to real-world business problems.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Key Highlights -->
+            <div class="lg:col-span-2 reveal-right" style="transition-delay: 200ms;">
+                <div class="space-y-4">
+                    <div class="p-5 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow flex items-start gap-4 group hover:border-blue-600/20 transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-blue-600/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <i data-lucide="brain" class="w-5 h-5 text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-medium text-white mb-1">Machine Learning</h4>
+                            <p class="text-xs text-neutral-500 leading-relaxed">End-to-end model development & deployment</p>
+                        </div>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow flex items-start gap-4 group hover:border-purple-600/20 transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-purple-600/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <i data-lucide="sparkles" class="w-5 h-5 text-purple-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-medium text-white mb-1">Generative AI</h4>
+                            <p class="text-xs text-neutral-500 leading-relaxed">LLM apps, RAG & multi-agent systems</p>
+                        </div>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow flex items-start gap-4 group hover:border-orange-500/20 transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <i data-lucide="workflow" class="w-5 h-5 text-orange-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-medium text-white mb-1">Agentic AI</h4>
+                            <p class="text-xs text-neutral-500 leading-relaxed">Intelligent automation & orchestration</p>
+                        </div>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow flex items-start gap-4 group hover:border-cyan-500/20 transition-colors">
+                        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <i data-lucide="server" class="w-5 h-5 text-cyan-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-medium text-white mb-1">Scalable Pipelines</h4>
+                            <p class="text-xs text-neutral-500 leading-relaxed">Cloud-based data & ML pipelines</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== CORE SKILLS ==================== -->
+<section id="skills" class="relative py-24 overflow-hidden">
+    <div class="absolute top-0 left-0 right-0 section-divider"></div>
+    <div class="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[120px]"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
+        <!-- Section Header -->
+        <div class="reveal mb-16">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-purple-600/10 border border-purple-600/20 flex items-center justify-center">
+                    <i data-lucide="layers" class="w-5 h-5 text-purple-400"></i>
+                </div>
+                <span class="text-[11px] uppercase tracking-[0.2em] text-purple-400 font-medium">Technical Arsenal</span>
+            </div>
+            <h2 class="font-oswald font-light text-3xl md:text-4xl tracking-tight">
+                Core <span class="text-purple-400">Skills</span>
+            </h2>
+        </div>
+
+        <!-- Skills Grid -->
+        <div class="grid md:grid-cols-2 gap-6">
+
+            <!-- Programming & Query Languages -->
+            <div class="reveal-scale p-6 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow hover:border-blue-600/20 transition-all" style="transition-delay: 100ms;">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 rounded-lg bg-blue-600/10 flex items-center justify-center">
+                        <i data-lucide="code-2" class="w-4 h-4 text-blue-400"></i>
+                    </div>
+                    <h3 class="text-sm font-medium text-white">Programming & Query Languages</h3>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">SQL</span>
+                </div>
+                <div class="mt-4 space-y-2">
+                    <div>
+                        <div class="flex justify-between text-[11px] mb-1"><span class="text-neutral-400">Python</span><span class="text-blue-400">Expert</span></div>
+                        <div class="progress-bar"><div class="progress-fill" data-width="95%"></div></div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-[11px] mb-1"><span class="text-neutral-400">SQL</span><span class="text-blue-400">Advanced</span></div>
+                        <div class="progress-bar"><div class="progress-fill" data-width="88%"></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Machine Learning and Artificial Intelligence -->
+            <div class="reveal-scale p-6 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow hover:border-purple-600/20 transition-all" style="transition-delay: 200ms;">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 rounded-lg bg-purple-600/10 flex items-center justify-center">
+                        <i data-lucide="brain-circuit" class="w-4 h-4 text-purple-400"></i>
+                    </div>
+                    <h3 class="text-sm font-medium text-white">Machine Learning and Artificial Intelligence</h3>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag">Linear Regression</span>
+                    <span class="skill-tag">Logistic Regression</span>
+                    <span class="skill-tag">Decision Trees</span>
+                    <span class="skill-tag">Random Forest</span>
+                    <span class="skill-tag">Gradient Boosting</span>
+                    <span class="skill-tag">XGBoost</span>
+                    <span class="skill-tag">SVM</span>
+                    <span class="skill-tag">K-Means Clustering</span>
+                    <span class="skill-tag">PCA</span>
+                    <span class="skill-tag">TensorFlow</span>
+                    <span class="skill-tag">PyTorch</span>
+                    <span class="skill-tag">Neural Networks</span>
+                    <span class="skill-tag">CNNs</span>
+                    <span class="skill-tag">RNNs</span>
+                </div>
+            </div>
+
+            <!-- Generative AI -->
+            <div class="reveal-scale p-6 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow hover:border-orange-500/20 transition-all" style="transition-delay: 100ms;">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 rounded-lg bg-orange-500/10 flex items-center justify-center">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-orange-400"></i>
+                    </div>
+                    <h3 class="text-sm font-medium text-white">Generative AI</h3>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag">Large Language Models (LLMs)</span>
+                    <span class="skill-tag">Retrieval-Augmented Generation (RAG)</span>
+                    <span class="skill-tag">LangChain</span>
+                    <span class="skill-tag">Multi-Agent Frameworks</span>
+                    <span class="skill-tag">Prompt Engineering</span>
+                    <span class="skill-tag">Transformers</span>
+                    <span class="skill-tag">Hugging Face</span>
+                    <span class="skill-tag">GPT Models</span>
+                    <span class="skill-tag">Fine-Tuning Pretrained Models</span>
+                </div>
+            </div>
+
+            <!-- Natural Language Processing -->
+            <div class="reveal-scale p-6 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow hover:border-cyan-500/20 transition-all" style="transition-delay: 200ms;">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 rounded-lg bg-cyan-500/10 flex items-center justify-center">
+                        <i data-lucide="message-square-text" class="w-4 h-4 text-cyan-400"></i>
+                    </div>
+                    <h3 class="text-sm font-medium text-white">Natural Language Processing</h3>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag">Text Preprocessing</span>
+                    <span class="skill-tag">Sentiment Analysis</span>
+                    <span class="skill-tag">Topic Modeling</span>
+                    <span class="skill-tag">Named Entity Recognition (Basic)</span>
+                    <span class="skill-tag">Embeddings</span>
+                    <span class="skill-tag">Semantic Search</span>
+                </div>
+            </div>
+
+            <!-- Data Engineering & Processing -->
+            <div class="reveal-scale p-6 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow hover:border-green-500/20 transition-all" style="transition-delay: 100ms;">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 rounded-lg bg-green-500/10 flex items-center justify-center">
+                        <i data-lucide="database" class="w-4 h-4 text-green-400"></i>
+                    </div>
+                    <h3 class="text-sm font-medium text-white">Data Engineering & Processing</h3>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag">Data Cleaning</span>
+                    <span class="skill-tag">Data Transformation</span>
+                    <span class="skill-tag">Feature Engineering</span>
+                    <span class="skill-tag">Exploratory Data Analysis (EDA)</span>
+                    <span class="skill-tag">Vector Databases (FAISS, Pinecone)</span>
+                    <span class="skill-tag">Data Pipelines</span>
+                </div>
+            </div>
+
+            <!-- Data Analysis & Visualization -->
+            <div class="reveal-scale p-6 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow hover:border-pink-500/20 transition-all" style="transition-delay: 200ms;">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 rounded-lg bg-pink-500/10 flex items-center justify-center">
+                        <i data-lucide="bar-chart-3" class="w-4 h-4 text-pink-400"></i>
+                    </div>
+                    <h3 class="text-sm font-medium text-white">Data Analysis & Visualization</h3>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag">Pandas</span>
+                    <span class="skill-tag">NumPy</span>
+                    <span class="skill-tag">Matplotlib</span>
+                    <span class="skill-tag">Seaborn</span>
+                    <span class="skill-tag">Tableau</span>
+                    <span class="skill-tag">Power BI</span>
+                </div>
+            </div>
+
+            <!-- Databases & Data Warehousing -->
+            <div class="reveal-scale p-6 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow hover:border-yellow-500/20 transition-all" style="transition-delay: 100ms;">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 rounded-lg bg-yellow-500/10 flex items-center justify-center">
+                        <i data-lucide="hard-drive" class="w-4 h-4 text-yellow-400"></i>
+                    </div>
+                    <h3 class="text-sm font-medium text-white">Databases & Data Warehousing</h3>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="skill-tag">PostgreSQL</span>
+                    <span class="skill-tag">MySQL</span>
+                </div>
+            </div>
+
+            <!-- Version Control & Collaboration + Other Tools -->
+            <div class="reveal-scale p-6 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow hover:border-indigo-500/20 transition-all" style="transition-delay: 200ms;">
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-9 h-9 rounded-lg bg-indigo-500/10 flex items-center justify-center">
+                                <i data-lucide="git-branch" class="w-4 h-4 text-indigo-400"></i>
+                            </div>
+                            <h3 class="text-sm font-medium text-white">Version Control & Collaboration</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">GitHub</span>
+                            <span class="skill-tag">GitHub Actions</span>
+                        </div>
+                    </div>
+                    <div class="border-t border-white/[0.06] pt-4">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-9 h-9 rounded-lg bg-rose-500/10 flex items-center justify-center">
+                                <i data-lucide="wrench" class="w-4 h-4 text-rose-400"></i>
+                            </div>
+                            <h3 class="text-sm font-medium text-white">Other Tools & Libraries</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-tag">OpenAI API</span>
+                            <span class="skill-tag">Hugging Face Transformers</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ==================== PROFESSIONAL EXPERIENCE ==================== -->
+<section id="experience" class="relative py-24 overflow-hidden">
+    <div class="absolute top-0 left-0 right-0 section-divider"></div>
+    <div class="absolute top-1/3 left-0 w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-[120px]"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
+        <!-- Section Header -->
+        <div class="reveal mb-16">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center">
+                    <i data-lucide="briefcase" class="w-5 h-5 text-orange-400"></i>
+                </div>
+                <span class="text-[11px] uppercase tracking-[0.2em] text-orange-400 font-medium">Career Journey</span>
+            </div>
+            <h2 class="font-oswald font-light text-3xl md:text-4xl tracking-tight">
+                Professional <span class="text-orange-400">Experience</span>
+            </h2>
+        </div>
+
+        <!-- Experience Card -->
+        <div class="reveal max-w-4xl">
+            <div class="relative">
+                <!-- Timeline line -->
+                <div class="absolute left-[7px] top-6 bottom-0 w-px bg-gradient-to-b from-blue-600/50 to-transparent"></div>
+
+                <!-- Timeline dot -->
+                <div class="relative pl-8 mb-0">
+                    <div class="absolute left-0 top-2 w-[15px] h-[15px] rounded-full bg-blue-600 border-4 border-[#050505]" style="box-shadow: 0 0 12px rgba(59,130,246,0.5);"></div>
+
+                    <!-- Experience Content -->
+                    <div class="p-8 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow">
+                        <!-- Header -->
+                        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-6">
+                            <div>
+                                <h3 class="text-xl font-medium text-white mb-1">Data Scientist</h3>
+                                <p class="text-blue-400 font-medium text-sm">Pasonet Technologies Private Limited</p>
+                            </div>
+                            <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-600/10 border border-blue-600/20 self-start">
+                                <i data-lucide="calendar" class="w-3.5 h-3.5 text-blue-400"></i>
+                                <span class="text-xs text-blue-400 font-medium">November 2023 – Present</span>
+                            </div>
+                        </div>
+
+                        <!-- Responsibilities -->
+                        <div class="space-y-3">
+                            <div class="flex gap-3 items-start group">
+                                <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0 group-hover:bg-blue-400 transition-colors"></div>
+                                <p class="text-sm text-neutral-300 leading-relaxed">Developed and deployed scalable Machine Learning, Generative AI, and Agentic AI solutions for real-world business use cases across retail and analytics domains.</p>
+                            </div>
+                            <div class="flex gap-3 items-start group">
+                                <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0 group-hover:bg-blue-400 transition-colors"></div>
+                                <p class="text-sm text-neutral-300 leading-relaxed">Designed end-to-end ETL and data processing pipelines using Python, SQL, and PySpark on cloud-based data platforms for efficient data transformation and analysis.</p>
+                            </div>
+                            <div class="flex gap-3 items-start group">
+                                <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0 group-hover:bg-blue-400 transition-colors"></div>
+                                <p class="text-sm text-neutral-300 leading-relaxed">Built and fine-tuned predictive ML models using Scikit-learn, XGBoost, Random Forest, and NLP techniques to improve business decision-making and forecasting accuracy.</p>
+                            </div>
+                            <div class="flex gap-3 items-start group">
+                                <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0 group-hover:bg-blue-400 transition-colors"></div>
+                                <p class="text-sm text-neutral-300 leading-relaxed">Developed LLM-powered applications using LangChain, OpenAI APIs, Hugging Face Transformers, and Retrieval-Augmented Generation (RAG) architectures.</p>
+                            </div>
+                            <div class="flex gap-3 items-start group">
+                                <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0 group-hover:bg-blue-400 transition-colors"></div>
+                                <p class="text-sm text-neutral-300 leading-relaxed">Implemented AI agents and multi-agent workflows for intelligent automation, task orchestration, conversational AI, and decision-support systems.</p>
+                            </div>
+                            <div class="flex gap-3 items-start group">
+                                <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0 group-hover:bg-blue-400 transition-colors"></div>
+                                <p class="text-sm text-neutral-300 leading-relaxed">Integrated vector databases such as FAISS and ChromaDB to enable semantic search, document retrieval, and knowledge-based AI applications.</p>
+                            </div>
+                            <div class="flex gap-3 items-start group">
+                                <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0 group-hover:bg-blue-400 transition-colors"></div>
+                                <p class="text-sm text-neutral-300 leading-relaxed">Created and deployed REST APIs using FastAPI and Flask for seamless integration of ML and GenAI models into production environments.</p>
+                            </div>
+                            <div class="flex gap-3 items-start group">
+                                <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0 group-hover:bg-blue-400 transition-colors"></div>
+                                <p class="text-sm text-neutral-300 leading-relaxed">Performed data cleaning, feature engineering, exploratory data analysis (EDA), and model evaluation to ensure high-quality, reliable AI solutions.</p>
+                            </div>
+                            <div class="flex gap-3 items-start group">
+                                <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0 group-hover:bg-blue-400 transition-colors"></div>
+                                <p class="text-sm text-neutral-300 leading-relaxed">Worked with Azure, AWS, Azure Data Factory, Databricks, and Azure Synapse Analytics for scalable data and AI workloads.</p>
+                            </div>
+                            <div class="flex gap-3 items-start group">
+                                <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0 group-hover:bg-blue-400 transition-colors"></div>
+                                <p class="text-sm text-neutral-300 leading-relaxed">Built interactive dashboards and visualizations using Power BI, Matplotlib, and Pandas to deliver actionable insights to stakeholders.</p>
+                            </div>
+                            <div class="flex gap-3 items-start group">
+                                <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0 group-hover:bg-blue-400 transition-colors"></div>
+                                <p class="text-sm text-neutral-300 leading-relaxed">Optimized model performance and scalability through hyperparameter tuning, cross-validation, and efficient deployment strategies.</p>
+                            </div>
+                            <div class="flex gap-3 items-start group">
+                                <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0 group-hover:bg-blue-400 transition-colors"></div>
+                                <p class="text-sm text-neutral-300 leading-relaxed">Collaborated with cross-functional teams of data engineers, analysts, and business stakeholders to deliver end-to-end AI-driven solutions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== PROJECTS ==================== -->
+<section id="projects" class="relative py-24 overflow-hidden">
+    <div class="absolute top-0 left-0 right-0 section-divider"></div>
+    <div class="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[120px]"></div>
+    <div class="absolute top-1/4 left-0 w-[300px] h-[300px] bg-blue-600/5 rounded-full blur-[100px]"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
+        <!-- Section Header -->
+        <div class="reveal mb-16">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
+                    <i data-lucide="folder-open" class="w-5 h-5 text-cyan-400"></i>
+                </div>
+                <span class="text-[11px] uppercase tracking-[0.2em] text-cyan-400 font-medium">Featured Work</span>
+            </div>
+            <h2 class="font-oswald font-light text-3xl md:text-4xl tracking-tight">
+                Key <span class="text-cyan-400">Projects</span>
+            </h2>
+        </div>
+
+        <!-- Project 1 -->
+        <div class="reveal mb-8" style="transition-delay: 100ms;">
+            <div class="project-card relative">
+                <div class="project-number">01</div>
+                <div class="relative z-10 p-8 md:p-10">
+                    <!-- Project Header -->
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="px-2.5 py-1 rounded-md bg-blue-600/10 border border-blue-600/20 text-[10px] uppercase tracking-wider text-blue-400 font-medium">Agentic AI</span>
+                                <span class="px-2.5 py-1 rounded-md bg-purple-600/10 border border-purple-600/20 text-[10px] uppercase tracking-wider text-purple-400 font-medium">Retail</span>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-medium text-white mb-2">Intelligent Retail Assistant using Agentic AI</h3>
+                        </div>
+                        <button class="accordion-btn self-start p-2 rounded-xl border border-white/10 hover:border-white/20 hover:bg-white/5 transition-all" data-target="project1-content">
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-neutral-400 accordion-icon"></i>
+                        </button>
+                    </div>
+
+                    <!-- Objective -->
+                    <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] mb-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <i data-lucide="target" class="w-4 h-4 text-blue-400"></i>
+                            <span class="text-xs font-medium text-blue-400 uppercase tracking-wider">Objective</span>
+                        </div>
+                        <p class="text-sm text-neutral-300 leading-relaxed">Developed an autonomous AI-powered retail assistant system to enhance customer experience, streamline inventory management, and support sales operations. The system leverages multi-agent architecture to automate customer interactions, optimize pricing strategies, and provide real-time business insights for retail decision-making.</p>
+                    </div>
+
+                    <!-- Accordion Content -->
+                    <div id="project1-content" class="accordion-content">
+                        <div class="pt-4">
+                            <h4 class="text-xs font-medium text-neutral-400 uppercase tracking-wider mb-4">Roles & Responsibilities</h4>
+                            <div class="space-y-2.5 mb-6">
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Designed and implemented a multi-agent system for customer service, inventory management, and sales support.</p>
+                                </div>
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Built autonomous customer interaction workflows using LangChain and OpenAI GPT.</p>
+                                </div>
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Developed a product recommendation engine based on customer preferences and purchase behavior.</p>
+                                </div>
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Created an inventory optimization system with demand forecasting and automated restocking alerts.</p>
+                                </div>
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Implemented a customer service agent handling queries, order tracking, and issue resolution.</p>
+                                </div>
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Built a dynamic pricing module based on demand, competition, and inventory levels.</p>
+                                </div>
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Developed a retail operations dashboard for monitoring KPIs and performance.</p>
+                                </div>
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Automated report generation for business insights and strategic planning.</p>
+                                </div>
+                            </div>
+
+                            <!-- Tools -->
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <i data-lucide="wrench" class="w-3.5 h-3.5 text-neutral-500"></i>
+                                <span class="text-[11px] text-neutral-500 uppercase tracking-wider mr-1">Tools:</span>
+                                <span class="skill-tag text-[11px]">Python</span>
+                                <span class="skill-tag text-[11px]">OpenAI GPT</span>
+                                <span class="skill-tag text-[11px]">LangChain</span>
+                                <span class="skill-tag text-[11px]">Multi-Agent Systems</span>
+                                <span class="skill-tag text-[11px]">Azure OpenAI</span>
+                                <span class="skill-tag text-[11px]">Vector Databases</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="reveal mb-8" style="transition-delay: 200ms;">
+            <div class="project-card relative">
+                <div class="project-number">02</div>
+                <div class="relative z-10 p-8 md:p-10">
+                    <!-- Project Header -->
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="px-2.5 py-1 rounded-md bg-green-600/10 border border-green-600/20 text-[10px] uppercase tracking-wider text-green-400 font-medium">Generative AI</span>
+                                <span class="px-2.5 py-1 rounded-md bg-yellow-600/10 border border-yellow-600/20 text-[10px] uppercase tracking-wider text-yellow-400 font-medium">FinTech</span>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-medium text-white mb-2">Intelligent Loan Application Processor using Generative AI</h3>
+                        </div>
+                        <button class="accordion-btn self-start p-2 rounded-xl border border-white/10 hover:border-white/20 hover:bg-white/5 transition-all" data-target="project2-content">
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-neutral-400 accordion-icon"></i>
+                        </button>
+                    </div>
+
+                    <!-- Objective -->
+                    <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] mb-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <i data-lucide="target" class="w-4 h-4 text-green-400"></i>
+                            <span class="text-xs font-medium text-green-400 uppercase tracking-wider">Objective</span>
+                        </div>
+                        <p class="text-sm text-neutral-300 leading-relaxed">Built an end-to-end AI system to automate loan application processing, including document extraction, credit risk assessment, fraud detection, and decision reporting. The solution improves efficiency, reduces manual effort, and ensures compliance with financial regulations through explainable AI models.</p>
+                    </div>
+
+                    <!-- Accordion Content -->
+                    <div id="project2-content" class="accordion-content">
+                        <div class="pt-4">
+                            <h4 class="text-xs font-medium text-neutral-400 uppercase tracking-wider mb-4">Roles & Responsibilities</h4>
+                            <div class="space-y-2.5 mb-6">
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Processed loan documents such as income statements, credit reports, and bank statements from secure channels.</p>
+                                </div>
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Implemented LLM-based document parsing using GPT-4 and Claude for structured data extraction.</p>
+                                </div>
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Built credit risk models using XGBoost and Random Forest for default prediction.</p>
+                                </div>
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Designed a RAG-based pipeline using vector databases for contextual document validation.</p>
+                                </div>
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Developed a fraud detection module using anomaly detection and cross-verification techniques.</p>
+                                </div>
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Generated automated loan assessment reports with risk scores and approval recommendations.</p>
+                                </div>
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Ensured compliance with financial regulations and improved decision explainability.</p>
+                                </div>
+                            </div>
+
+                            <!-- Tools -->
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <i data-lucide="wrench" class="w-3.5 h-3.5 text-neutral-500"></i>
+                                <span class="text-[11px] text-neutral-500 uppercase tracking-wider mr-1">Tools:</span>
+                                <span class="skill-tag text-[11px]">Python</span>
+                                <span class="skill-tag text-[11px]">LangChain</span>
+                                <span class="skill-tag text-[11px]">GPT-4</span>
+                                <span class="skill-tag text-[11px]">Azure Form Recognizer</span>
+                                <span class="skill-tag text-[11px]">Tesseract OCR</span>
+                                <span class="skill-tag text-[11px]">XGBoost</span>
+                                <span class="skill-tag text-[11px]">Random Forest</span>
+                                <span class="skill-tag text-[11px]">ChromaDB</span>
+                                <span class="skill-tag text-[11px]">Pinecone</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="reveal mb-8" style="transition-delay: 300ms;">
+            <div class="project-card relative">
+                <div class="project-number">03</div>
+                <div class="relative z-10 p-8 md:p-10">
+                    <!-- Project Header -->
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="px-2.5 py-1 rounded-md bg-pink-600/10 border border-pink-600/20 text-[10px] uppercase tracking-wider text-pink-400 font-medium">Machine Learning</span>
+                                <span class="px-2.5 py-1 rounded-md bg-blue-600/10 border border-blue-600/20 text-[10px] uppercase tracking-wider text-blue-400 font-medium">Analytics</span>
+                            </div>
+                            <h3 class="text-xl md:text-2xl font-medium text-white mb-2">Retail Customer Segmentation using Machine Learning</h3>
+                        </div>
+                        <button class="accordion-btn self-start p-2 rounded-xl border border-white/10 hover:border-white/20 hover:bg-white/5 transition-all" data-target="project3-content">
+                            <i data-lucide="chevron-down" class="w-5 h-5 text-neutral-400 accordion-icon"></i>
+                        </button>
+                    </div>
+
+                    <!-- Objective -->
+                    <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] mb-4">
+                        <div class="flex items-center gap-2 mb-2">
+                            <i data-lucide="target" class="w-4 h-4 text-pink-400"></i>
+                            <span class="text-xs font-medium text-pink-400 uppercase tracking-wider">Objective</span>
+                        </div>
+                        <p class="text-sm text-neutral-300 leading-relaxed">Developed machine learning models to segment customers based on purchasing behavior and demographics. The solution enables targeted marketing, personalized recommendations, and improved customer retention strategies through data-driven insights.</p>
+                    </div>
+
+                    <!-- Accordion Content -->
+                    <div id="project3-content" class="accordion-content">
+                        <div class="pt-4">
+                            <h4 class="text-xs font-medium text-neutral-400 uppercase tracking-wider mb-4">Roles & Responsibilities</h4>
+                            <div class="space-y-2.5 mb-6">
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Analyzed customer transaction data, browsing behavior, and demographic information.</p>
+                                </div>
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Engineered RFM features and customer lifetime value metrics.</p>
+                                </div>
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Built segmentation models using clustering and ensemble learning techniques.</p>
+                                </div>
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Developed dynamic pricing strategies for different customer segments.</p>
+                                </div>
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Implemented a customer churn prediction model for retention planning.</p>
+                                </div>
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Created a customer analytics dashboard for business teams.</p>
+                                </div>
+                                <div class="flex gap-3 items-start">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div>
+                                    <p class="text-sm text-neutral-300">Built a real-time segmentation system for personalization.</p>
+                                </div>
+                            </div>
+
+                            <!-- Tools -->
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <i data-lucide="wrench" class="w-3.5 h-3.5 text-neutral-500"></i>
+                                <span class="text-[11px] text-neutral-500 uppercase tracking-wider mr-1">Tools:</span>
+                                <span class="skill-tag text-[11px]">Python</span>
+                                <span class="skill-tag text-[11px]">Scikit-learn</span>
+                                <span class="skill-tag text-[11px]">XGBoost</span>
+                                <span class="skill-tag text-[11px]">Pandas</span>
+                                <span class="skill-tag text-[11px]">ML</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== EDUCATION ==================== -->
+<section id="education" class="relative py-24 overflow-hidden">
+    <div class="absolute top-0 left-0 right-0 section-divider"></div>
+    <div class="absolute top-1/2 right-1/4 w-[400px] h-[400px] bg-orange-500/5 rounded-full blur-[120px]"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-6">
+        <!-- Section Header -->
+        <div class="reveal mb-16">
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-center">
+                    <i data-lucide="graduation-cap" class="w-5 h-5 text-green-400"></i>
+                </div>
+                <span class="text-[11px] uppercase tracking-[0.2em] text-green-400 font-medium">Academic Background</span>
+            </div>
+            <h2 class="font-oswald font-light text-3xl md:text-4xl tracking-tight">
+                <span class="text-green-400">Education</span>
+            </h2>
+        </div>
+
+        <div class="reveal max-w-3xl" style="transition-delay: 100ms;">
+            <div class="relative pl-8">
+                <!-- Timeline line -->
+                <div class="absolute left-[7px] top-6 bottom-0 w-px bg-gradient-to-b from-green-500/50 to-transparent"></div>
+                <!-- Timeline dot -->
+                <div class="absolute left-0 top-2 w-[15px] h-[15px] rounded-full bg-green-500 border-4 border-[#050505]" style="box-shadow: 0 0 12px rgba(34,197,94,0.5);"></div>
+
+                <div class="p-8 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow hover:border-green-500/20 transition-all">
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
+                        <div>
+                            <h3 class="text-lg font-medium text-white mb-1">Bachelor of Technology in Computer Science Engineering</h3>
+                            <p class="text-green-400 font-medium text-sm">Ballari Institute of Technology and Management, Ballari</p>
+                        </div>
+                        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20 self-start">
+                            <i data-lucide="calendar" class="w-3.5 h-3.5 text-green-400"></i>
+                            <span class="text-xs text-green-400 font-medium">2023</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-1.5 text-xs text-neutral-500">
+                            <i data-lucide="award" class="w-3.5 h-3.5"></i>
+                            B.Tech — CSE
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== CTA / CONTACT SECTION ==================== -->
+<section class="relative py-24 overflow-hidden">
+    <div class="absolute top-0 left-0 right-0 section-divider"></div>
+    <div class="absolute inset-0 stars-bg opacity-30"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/8 rounded-full blur-[120px]"></div>
+
+    <div class="relative z-10 max-w-3xl mx-auto px-6 text-center">
+        <div class="reveal">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] mb-8">
+                <i data-lucide="zap" class="w-3.5 h-3.5 text-yellow-400"></i>
+                <span class="text-xs text-neutral-400 font-medium">Let's Connect</span>
+            </div>
+            <h2 class="font-oswald font-light text-3xl md:text-5xl tracking-tight mb-6">
+                Interested in working<br><span class="gradient-text">together?</span>
+            </h2>
+            <p class="text-neutral-400 text-sm md:text-base max-w-xl mx-auto mb-10 leading-relaxed">
+                I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="mailto:Shivareddyr100@gmail.com" class="group px-8 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-xl transition-all hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(37,99,235,0.4)] flex items-center gap-2.5">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                    Shivareddyr100@gmail.com
+                </a>
+                <a href="tel:7899658797" class="px-8 py-3.5 border border-white/10 hover:border-white/20 hover:bg-white/5 text-white font-medium rounded-xl transition-all flex items-center gap-2.5">
+                    <i data-lucide="phone" class="w-5 h-5"></i>
+                    7899658797
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="relative border-t border-white/[0.06] py-8">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-md bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                    <span class="text-white font-oswald font-bold text-[10px]">SP</span>
+                </div>
+                <span class="text-sm text-neutral-500">© 2025 Shiva Prasad Reddy. All rights reserved.</span>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-neutral-600">
+                <i data-lucide="map-pin" class="w-3 h-3"></i>
+                Bengaluru, India
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" class="fixed bottom-8 right-8 w-10 h-10 rounded-xl bg-[#0A0A0A]/90 border border-white/10 backdrop-blur-xl flex items-center justify-center opacity-0 translate-y-4 transition-all duration-300 hover:border-blue-600/30 hover:bg-blue-600/10 z-50" style="pointer-events: none;">
+    <i data-lucide="arrow-up" class="w-4 h-4 text-neutral-400"></i>
+</button>
+
+
+<script>
+// Initialize Lucide Icons
+lucide.createIcons();
+
+// ==================== SCROLL PROGRESS ====================
+window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    document.getElementById('scroll-progress').style.width = progress + '%';
+});
+
+// ==================== BACK TO TOP ====================
+const backToTop = document.getElementById('back-to-top');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 600) {
+        backToTop.style.opacity = '1';
+        backToTop.style.transform = 'translateY(0)';
+        backToTop.style.pointerEvents = 'auto';
+    } else {
+        backToTop.style.opacity = '0';
+        backToTop.style.transform = 'translateY(16px)';
+        backToTop.style.pointerEvents = 'none';
+    }
+});
+backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ==================== MOBILE NAV ====================
+const mobileNav = document.getElementById('mobile-nav');
+document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+    mobileNav.classList.add('open');
+    document.body.style.overflow = 'hidden';
+});
+document.getElementById('mobile-close-btn').addEventListener('click', () => {
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+});
+document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+        mobileNav.classList.remove('open');
+        document.body.style.overflow = '';
+    });
+});
+
+// ==================== SCROLL REVEAL ====================
+const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+revealElements.forEach(el => revealObserver.observe(el));
+
+// ==================== PROGRESS BARS ====================
+const progressBars = document.querySelectorAll('.progress-fill');
+const progressObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const width = entry.target.getAttribute('data-width');
+            entry.target.style.width = width;
+        }
+    });
+}, { threshold: 0.5 });
+progressBars.forEach(bar => progressObserver.observe(bar));
+
+// ==================== ACTIVE NAV LINK ====================
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link[data-section]');
+const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('data-section') === id);
+            });
+        }
+    });
+}, { threshold: 0.3, rootMargin: '-20% 0px -60% 0px' });
+sections.forEach(section => navObserver.observe(section));
+
+// ==================== ACCORDION ====================
+document.querySelectorAll('.accordion-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+        const content = document.getElementById(targetId);
+        const icon = btn.querySelector('.accordion-icon');
+        const isOpen = content.classList.contains('open');
+
+        // Close all
+        document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('open'));
+        document.querySelectorAll('.accordion-icon').forEach(i => i.classList.remove('open'));
+
+        // Toggle current
+        if (!isOpen) {
+            content.classList.add('open');
+            icon.classList.add('open');
+        }
+    });
+});
+
+// ==================== CARD GLOW EFFECT ====================
+document.querySelectorAll('.card-glow').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+        card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+    });
+});
+
+// ==================== COPY TO CLIPBOARD ====================
+function copyToClipboard(text, message) {
+    navigator.clipboard.writeText(text).then(() => {
+        showToast(message);
+    }).catch(() => {
+        // Fallback
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast(message);
+    });
+}
+
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toast-message');
+    toastMsg.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// ==================== COUNTER ANIMATION ====================
+const counters = document.querySelectorAll('[data-count]');
+const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const target = parseInt(entry.target.getAttribute('data-count'));
+            let current = 0;
+            const increment = target / 40;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    entry.target.textContent = target + '+';
+                    clearInterval(timer);
+                } else {
+                    entry.target.textContent = Math.floor(current) + '+';
+                }
+            }, 40);
+            counterObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+counters.forEach(c => counterObserver.observe(c));
+
+// ==================== NAVBAR HIDE ON SCROLL DOWN ====================
+let lastScrollY = 0;
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+    if (currentScrollY > lastScrollY && currentScrollY > 200) {
+        navbar.style.transform = 'translateX(-50%) translateY(-120%)';
+        navbar.style.transition = 'transform 0.4s cubic-bezier(0.2,0.8,0.2,1)';
+    } else {
+        navbar.style.transform = 'translateX(-50%) translateY(0)';
+        navbar.style.transition = 'transform 0.4s cubic-bezier(0.2,0.8,0.2,1)';
+    }
+    lastScrollY = currentScrollY;
+});
+
+// ==================== OPEN FIRST PROJECT BY DEFAULT ====================
+setTimeout(() => {
+    const firstContent = document.getElementById('project1-content');
+    const firstIcon = firstContent.previousElementSibling?.querySelector?.('.accordion-icon')
+        || document.querySelector('[data-target="project1-content"] .accordion-icon');
+    if (firstContent) firstContent.classList.add('open');
+    if (firstIcon) firstIcon.classList.add('open');
+}, 1500);
+</script>
+
+</body>
+</html>
