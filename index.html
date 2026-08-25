@@ -24,12 +24,10 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: #050505; color: #fff; overflow-x: hidden; }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #0A0A0A; }
         ::-webkit-scrollbar-thumb { background: #2563EB; border-radius: 3px; }
 
-        /* Animations */
         @keyframes fadeInUpBlur {
             0% { opacity: 0; transform: translateY(30px); filter: blur(8px); }
             100% { opacity: 1; transform: translateY(0); filter: blur(0); }
@@ -50,9 +48,13 @@
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-12px); }
         }
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
+        }
         @keyframes pulse-glow {
             0%, 100% { box-shadow: 0 0 20px rgba(59,130,246,0.2); }
-            50% { box-shadow: 0 0 40px rgba(59,130,246,0.4); }
+            50% { box-shadow: 0 0 50px rgba(59,130,246,0.4); }
         }
         @keyframes gradient-shift {
             0% { background-position: 0% 50%; }
@@ -78,9 +80,36 @@
         @keyframes ping {
             75%, 100% { transform: scale(2); opacity: 0; }
         }
-        @keyframes countUp {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        @keyframes morph {
+            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+            50% { border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%; }
+            75% { border-radius: 60% 40% 60% 30% / 70% 30% 50% 60%; }
+        }
+        @keyframes dash {
+            to { stroke-dashoffset: 0; }
+        }
+        @keyframes particle-float {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+        @keyframes rotate-slow-reverse {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(-360deg); }
+        }
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
         }
 
         .animate-in { animation: fadeInUpBlur 0.8s cubic-bezier(0.2,0.8,0.2,1) both; }
@@ -98,7 +127,6 @@
         .delay-1000 { animation-delay: 1000ms; }
         .delay-1200 { animation-delay: 1200ms; }
 
-        /* Hidden state for scroll-triggered animations */
         .reveal { opacity: 0; transform: translateY(30px); filter: blur(8px); transition: all 0.8s cubic-bezier(0.2,0.8,0.2,1); }
         .reveal.visible { opacity: 1; transform: translateY(0); filter: blur(0); }
         .reveal-left { opacity: 0; transform: translateX(-40px); filter: blur(6px); transition: all 0.8s cubic-bezier(0.2,0.8,0.2,1); }
@@ -108,7 +136,6 @@
         .reveal-scale { opacity: 0; transform: scale(0.9); filter: blur(6px); transition: all 0.8s cubic-bezier(0.2,0.8,0.2,1); }
         .reveal-scale.visible { opacity: 1; transform: scale(1); filter: blur(0); }
 
-        /* Star background */
         .stars-bg {
             background-image:
                 radial-gradient(1px 1px at 50px 80px, rgba(255,255,255,0.4), transparent),
@@ -131,8 +158,6 @@
                 radial-gradient(1px 1px at 850px 120px, rgba(255,255,255,0.3), transparent);
             background-size: 900px 400px;
         }
-
-        /* Grid background */
         .grid-bg {
             background-image:
                 linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
@@ -140,7 +165,6 @@
             background-size: 24px 24px;
         }
 
-        /* Gradient text */
         .gradient-text {
             background: linear-gradient(135deg, #60A5FA, #A855F7, #F97316);
             background-size: 200% 200%;
@@ -150,11 +174,7 @@
             animation: gradient-shift 4s ease infinite;
         }
 
-        /* Card glow on hover */
-        .card-glow {
-            position: relative;
-            overflow: hidden;
-        }
+        .card-glow { position: relative; overflow: hidden; }
         .card-glow::before {
             content: '';
             position: absolute;
@@ -167,7 +187,6 @@
         }
         .card-glow:hover::before { opacity: 1; }
 
-        /* Skill tag */
         .skill-tag {
             background: rgba(59,130,246,0.08);
             border: 1px solid rgba(59,130,246,0.2);
@@ -185,13 +204,13 @@
             box-shadow: 0 4px 15px rgba(59,130,246,0.15);
         }
 
-        /* Project card */
         .project-card {
             background: #0A0A0A;
             border: 1px solid rgba(255,255,255,0.06);
             border-radius: 1.5rem;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.2,0.8,0.2,1);
+            position: relative;
         }
         .project-card:hover {
             border-color: rgba(59,130,246,0.3);
@@ -211,24 +230,6 @@
         }
         .project-card:hover .project-number { color: rgba(59,130,246,0.1); }
 
-        /* Experience timeline */
-        .timeline-dot {
-            width: 16px; height: 16px;
-            background: #2563EB;
-            border-radius: 50%;
-            position: relative;
-            flex-shrink: 0;
-        }
-        .timeline-dot::after {
-            content: '';
-            position: absolute;
-            top: 16px; left: 50%;
-            transform: translateX(-50%);
-            width: 2px; height: calc(100% + 32px);
-            background: linear-gradient(to bottom, rgba(37,99,235,0.5), rgba(37,99,235,0.05));
-        }
-
-        /* Nav active */
         .nav-link { position: relative; }
         .nav-link::after {
             content: '';
@@ -241,12 +242,11 @@
         }
         .nav-link.active::after { width: 100%; }
 
-        /* Floating elements */
         .float-1 { animation: float 4s ease-in-out infinite; }
         .float-2 { animation: float 5s ease-in-out infinite 1s; }
         .float-3 { animation: float 6s ease-in-out infinite 2s; }
+        .float-slow { animation: float-slow 7s ease-in-out infinite; }
 
-        /* Orbiting dots */
         .orbit-container { position: relative; width: 260px; height: 260px; }
         .orbit-dot {
             position: absolute;
@@ -259,113 +259,163 @@
         .orbit-dot:nth-child(2) { animation: orbit 8s linear infinite 2.67s; background: #A855F7; }
         .orbit-dot:nth-child(3) { animation: orbit 8s linear infinite 5.33s; background: #F97316; }
 
-        /* Accordion */
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s cubic-bezier(0.2,0.8,0.2,1);
-        }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.2,0.8,0.2,1); }
         .accordion-content.open { max-height: 2000px; }
         .accordion-icon { transition: transform 0.3s; }
         .accordion-icon.open { transform: rotate(180deg); }
 
-        /* Toast */
         .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
+            position: fixed; bottom: 30px; left: 50%;
             transform: translateX(-50%) translateY(100px);
-            background: rgba(10,10,10,0.95);
-            border: 1px solid rgba(59,130,246,0.3);
-            backdrop-filter: blur(12px);
-            padding: 12px 24px;
-            border-radius: 12px;
-            z-index: 9999;
-            transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1), opacity 0.4s;
-            opacity: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            background: rgba(10,10,10,0.95); border: 1px solid rgba(59,130,246,0.3);
+            backdrop-filter: blur(12px); padding: 12px 24px; border-radius: 12px;
+            z-index: 9999; transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1), opacity 0.4s;
+            opacity: 0; display: flex; align-items: center; gap: 10px;
         }
         .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-        /* Progress bars */
-        .progress-bar {
-            height: 4px;
-            background: rgba(255,255,255,0.06);
-            border-radius: 2px;
-            overflow: hidden;
-        }
+        .progress-bar { height: 4px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
         .progress-fill {
-            height: 100%;
-            background: linear-gradient(to right, #2563EB, #22D3EE);
-            border-radius: 2px;
-            width: 0;
-            transition: width 1.5s cubic-bezier(0.2,0.8,0.2,1);
+            height: 100%; background: linear-gradient(to right, #2563EB, #22D3EE);
+            border-radius: 2px; width: 0; transition: width 1.5s cubic-bezier(0.2,0.8,0.2,1);
         }
 
-        /* Section divider */
-        .section-divider {
-            height: 1px;
-            background: linear-gradient(to right, transparent, rgba(59,130,246,0.3), transparent);
-        }
+        .section-divider { height: 1px; background: linear-gradient(to right, transparent, rgba(59,130,246,0.3), transparent); }
 
-        /* Scroll progress */
         #scroll-progress {
-            position: fixed;
-            top: 0; left: 0;
-            height: 2px;
+            position: fixed; top: 0; left: 0; height: 2px;
             background: linear-gradient(to right, #2563EB, #22D3EE, #A855F7);
-            z-index: 10000;
-            transition: width 0.1s;
+            z-index: 10000; transition: width 0.1s;
         }
 
-        /* Mobile nav */
-        .mobile-nav {
-            transform: translateX(100%);
-            transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1);
-        }
+        .mobile-nav { transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1); }
         .mobile-nav.open { transform: translateX(0); }
 
-        /* Magnetic button effect area */
-        .magnetic-area {
-            position: relative;
-            display: inline-flex;
-        }
-
-        /* Tooltip */
-        .tooltip-text {
-            visibility: hidden;
-            opacity: 0;
-            position: absolute;
-            bottom: calc(100% + 8px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(10,10,10,0.95);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            white-space: nowrap;
-            transition: all 0.2s;
-            z-index: 50;
-        }
-        .tooltip-wrap:hover .tooltip-text { visibility: visible; opacity: 1; }
-
-        /* Selection */
-        ::selection { background: rgba(59,130,246,0.3); color: #fff; }
-
-        /* Typing effect */
         .typing-text {
-            display: inline-block;
-            overflow: hidden;
-            white-space: nowrap;
+            display: inline-block; overflow: hidden; white-space: nowrap;
             border-right: 2px solid #3B82F6;
             animation: typewriter 2s steps(30) 0.5s both, blink 0.8s step-end infinite;
         }
 
-        /* Smooth scroll */
         html { scroll-behavior: smooth; }
+        ::selection { background: rgba(59,130,246,0.3); color: #fff; }
+
+        /* Night scene hero background */
+        .hero-bg {
+            position: absolute; inset: 0; z-index: 0;
+            background: url('https://z-cdn-media.chatglm.cn/files/621572b6-8eb6-499e-83c4-661078fb57fe.jpg?auth_key=1887642074-aa86174f41c34b19ba56610d5a1fab1f-0-4db913c9522cc5a47bf76c7b1d5faf2c') center/cover no-repeat;
+        }
+        .hero-bg::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(5,5,5,0.75) 0%,
+                rgba(5,5,5,0.6) 30%,
+                rgba(5,5,5,0.7) 60%,
+                rgba(5,5,5,0.95) 100%
+            );
+        }
+
+        /* Creation hands section */
+        .hands-artwork {
+            position: relative;
+        }
+        .hands-artwork img {
+            filter: brightness(0.6) contrast(1.2);
+            transition: filter 0.6s;
+        }
+        .hands-artwork:hover img {
+            filter: brightness(0.8) contrast(1.1);
+        }
+        .hands-artwork::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at center, transparent 30%, rgba(5,5,5,0.9) 80%);
+            pointer-events: none;
+        }
+
+        /* Morphing blob */
+        .morph-blob {
+            animation: morph 8s ease-in-out infinite;
+            background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(168,85,247,0.15));
+            filter: blur(40px);
+        }
+
+        /* Shimmer line */
+        .shimmer-line {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer-line::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        /* Twinkling stars overlay */
+        .twinkle-star {
+            position: absolute;
+            width: 2px; height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration, 3s) ease-in-out infinite;
+            animation-delay: var(--delay, 0s);
+        }
+
+        /* Particle */
+        .particle {
+            position: absolute;
+            width: 3px; height: 3px;
+            background: rgba(59,130,246,0.6);
+            border-radius: 50%;
+            animation: particle-float var(--duration, 10s) linear infinite;
+            animation-delay: var(--delay, 0s);
+        }
+
+        /* Geometric decorations */
+        .geo-ring {
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        /* Dotted pattern */
+        .dot-pattern {
+            background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* CTA section background */
+        .cta-bg {
+            position: absolute; inset: 0; z-index: 0;
+            background: url('https://z-cdn-media.chatglm.cn/files/621572b6-8eb6-499e-83c4-661078fb57fe.jpg?auth_key=1887642074-aa86174f41c34b19ba56610d5a1fab1f-0-4db913c9522cc5a47bf76c7b1d5faf2c') center/cover no-repeat;
+        }
+        .cta-bg::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: rgba(5,5,5,0.88);
+        }
+
+        /* Glowing border card */
+        .glow-border {
+            position: relative;
+        }
+        .glow-border::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: conic-gradient(from 0deg, transparent, rgba(59,130,246,0.3), transparent, rgba(168,85,247,0.3), transparent);
+            z-index: -1;
+            animation: spin-slow 8s linear infinite;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .glow-border:hover::before { opacity: 1; }
     </style>
 </head>
 <body class="font-inter">
@@ -426,21 +476,47 @@
 </div>
 
 <!-- ==================== HERO SECTION ==================== -->
-<section id="hero" class="relative min-h-screen flex items-center overflow-hidden stars-bg">
-    <!-- Background Glows -->
-    <div class="absolute top-[-200px] left-[-200px] w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[120px] float-1"></div>
-    <div class="absolute bottom-[-200px] right-[-200px] w-[500px] h-[500px] bg-purple-600/8 rounded-full blur-[100px] float-2"></div>
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-orange-500/5 rounded-full blur-[100px] float-3"></div>
+<section id="hero" class="relative min-h-screen flex items-center overflow-hidden">
+    <!-- Night Scene Background Image -->
+    <div class="hero-bg"></div>
+
+    <!-- Extra twinkling stars overlay -->
+    <div class="absolute inset-0 z-[1]">
+        <div class="twinkle-star" style="top:8%;left:12%;--duration:2.5s;--delay:0s;"></div>
+        <div class="twinkle-star" style="top:15%;left:45%;--duration:3.5s;--delay:0.8s;"></div>
+        <div class="twinkle-star" style="top:5%;left:70%;--duration:2.8s;--delay:1.5s;"></div>
+        <div class="twinkle-star" style="top:22%;left:85%;--duration:4s;--delay:0.3s;"></div>
+        <div class="twinkle-star" style="top:12%;left:30%;--duration:3s;--delay:2s;"></div>
+        <div class="twinkle-star" style="top:18%;left:60%;--duration:2.2s;--delay:1.2s;"></div>
+        <div class="twinkle-star" style="top:3%;left:90%;--duration:3.8s;--delay:0.6s;"></div>
+        <div class="twinkle-star" style="top:25%;left:5%;--duration:2.6s;--delay:1.8s;"></div>
+    </div>
+
+    <!-- Floating particles -->
+    <div class="absolute inset-0 z-[1] overflow-hidden">
+        <div class="particle" style="left:10%;bottom:-10px;--duration:12s;--delay:0s;width:2px;height:2px;"></div>
+        <div class="particle" style="left:25%;bottom:-10px;--duration:15s;--delay:2s;width:3px;height:3px;background:rgba(168,85,247,0.5);"></div>
+        <div class="particle" style="left:50%;bottom:-10px;--duration:10s;--delay:4s;width:2px;height:2px;"></div>
+        <div class="particle" style="left:75%;bottom:-10px;--duration:14s;--delay:1s;width:2px;height:2px;background:rgba(249,115,22,0.4);"></div>
+        <div class="particle" style="left:90%;bottom:-10px;--duration:11s;--delay:3s;width:3px;height:3px;"></div>
+    </div>
+
+    <!-- Geometric decorations -->
+    <div class="geo-ring w-[300px] h-[300px] top-[10%] right-[-50px] z-[1]" style="animation: spin-slow 40s linear infinite;"></div>
+    <div class="geo-ring w-[200px] h-[200px] bottom-[20%] left-[-30px] z-[1]" style="animation: rotate-slow-reverse 35s linear infinite;"></div>
+    <div class="geo-ring w-[400px] h-[400px] top-[30%] left-[30%] z-[1] opacity-30" style="animation: spin-slow 60s linear infinite; border-style: dashed;"></div>
+
+    <!-- Morphing blob -->
+    <div class="morph-blob absolute w-[300px] h-[300px] top-[20%] right-[15%] z-[1] float-slow"></div>
 
     <!-- Grid overlay -->
-    <div class="absolute inset-0 grid-bg opacity-50"></div>
+    <div class="absolute inset-0 grid-bg opacity-30 z-[1]"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-20 w-full">
         <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
             <!-- Left Content -->
             <div class="flex-1 text-center lg:text-left">
-                <!-- Status badge -->
-                <div class="animate-in delay-100 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] mb-8">
+                <div class="animate-in delay-100 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] mb-8 backdrop-blur-sm">
                     <span class="relative flex h-2 w-2">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" style="animation: ping 1s cubic-bezier(0,0,0.2,1) infinite;"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -448,18 +524,15 @@
                     <span class="text-xs text-neutral-400 font-medium">Available for opportunities</span>
                 </div>
 
-                <!-- Name -->
                 <h1 class="animate-in delay-200 font-oswald font-light text-5xl sm:text-6xl lg:text-[76px] leading-[1.05] tracking-tight mb-4">
                     SHIVA PRASAD<br>
                     <span class="gradient-text">REDDY</span>
                 </h1>
 
-                <!-- Title with typing effect -->
                 <div class="animate-in delay-300 mb-6">
                     <span class="typing-text text-lg md:text-xl text-blue-400 font-medium">Data Scientist</span>
                 </div>
 
-                <!-- Location & Contact -->
                 <div class="animate-in delay-400 flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-8 text-sm text-neutral-400">
                     <span class="flex items-center gap-1.5">
                         <i data-lucide="map-pin" class="w-4 h-4 text-blue-400/70"></i>
@@ -477,11 +550,13 @@
                     </button>
                 </div>
 
-                <!-- CTA Buttons -->
                 <div class="animate-in delay-500 flex flex-wrap items-center justify-center lg:justify-start gap-4">
-                    <a href="#projects" class="group relative px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-xl transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] flex items-center gap-2">
-                        View Projects
-                        <i data-lucide="arrow-down-right" class="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5"></i>
+                    <a href="#projects" class="group relative px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-xl transition-all hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] flex items-center gap-2 overflow-hidden">
+                        <span class="relative z-10 flex items-center gap-2">
+                            View Projects
+                            <i data-lucide="arrow-down-right" class="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5"></i>
+                        </span>
+                        <div class="absolute inset-0 shimmer-line"></div>
                     </a>
                     <a href="#experience" class="px-6 py-3 border border-white/10 hover:border-white/20 hover:bg-white/5 text-white font-medium rounded-xl transition-all flex items-center gap-2">
                         <i data-lucide="briefcase" class="w-4 h-4"></i>
@@ -489,7 +564,6 @@
                     </a>
                 </div>
 
-                <!-- Quick Stats -->
                 <div class="animate-in delay-700 mt-12 flex items-center justify-center lg:justify-start gap-8">
                     <div class="text-center">
                         <div class="font-oswald text-3xl font-light text-white" data-count="3">0</div>
@@ -511,31 +585,27 @@
             <!-- Right - Orbiting Visual -->
             <div class="flex-shrink-0 animate-scale delay-500">
                 <div class="orbit-container">
-                    <!-- Center avatar -->
                     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-gradient-to-br from-blue-600/20 to-purple-600/20 border border-white/10 flex items-center justify-center" style="animation: pulse-glow 3s ease-in-out infinite;">
                         <div class="w-24 h-24 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
                             <span class="font-oswald text-2xl font-bold text-white">SP</span>
                         </div>
                     </div>
-                    <!-- Orbiting dots -->
                     <div class="orbit-dot"></div>
                     <div class="orbit-dot"></div>
                     <div class="orbit-dot"></div>
-                    <!-- Orbit ring -->
                     <div class="absolute inset-0 rounded-full border border-white/[0.04]" style="animation: spin-slow 30s linear infinite;"></div>
                     <div class="absolute inset-6 rounded-full border border-white/[0.03]" style="animation: spin-slow 25s linear infinite reverse;"></div>
-                    <!-- Floating labels -->
-                    <div class="absolute -top-2 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/[0.08] text-[10px] text-blue-400 font-medium float-1">ML</div>
-                    <div class="absolute top-1/2 -right-8 -translate-y-1/2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/[0.08] text-[10px] text-purple-400 font-medium float-2">GenAI</div>
-                    <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/[0.08] text-[10px] text-orange-400 font-medium float-3">RAG</div>
-                    <div class="absolute top-1/2 -left-10 -translate-y-1/2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/[0.08] text-[10px] text-cyan-400 font-medium float-1">NLP</div>
+                    <div class="absolute -top-2 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/[0.08] text-[10px] text-blue-400 font-medium float-1 backdrop-blur-sm">ML</div>
+                    <div class="absolute top-1/2 -right-8 -translate-y-1/2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/[0.08] text-[10px] text-purple-400 font-medium float-2 backdrop-blur-sm">GenAI</div>
+                    <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/[0.08] text-[10px] text-orange-400 font-medium float-3 backdrop-blur-sm">RAG</div>
+                    <div class="absolute top-1/2 -left-10 -translate-y-1/2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/[0.08] text-[10px] text-cyan-400 font-medium float-1 backdrop-blur-sm">NLP</div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-in delay-1200 flex flex-col items-center gap-2">
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-in delay-1200 flex flex-col items-center gap-2 z-10">
         <span class="text-[10px] uppercase tracking-[0.2em] text-neutral-500">Scroll</span>
         <div class="w-5 h-8 rounded-full border border-white/10 flex items-start justify-center p-1">
             <div class="w-1 h-2 rounded-full bg-blue-400" style="animation: float 2s ease-in-out infinite;"></div>
@@ -543,13 +613,15 @@
     </div>
 </section>
 
-<!-- ==================== ABOUT / PROFESSIONAL SUMMARY ==================== -->
+<!-- ==================== ABOUT / CREATION HANDS ARTWORK ==================== -->
 <section id="about" class="relative py-24 overflow-hidden">
     <div class="absolute top-0 left-0 right-0 section-divider"></div>
     <div class="absolute top-1/2 right-0 w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-[120px]"></div>
+    <!-- Dot pattern decoration -->
+    <div class="absolute top-10 left-10 w-40 h-40 dot-pattern opacity-30 rounded-2xl"></div>
+    <div class="absolute bottom-10 right-10 w-32 h-32 dot-pattern opacity-20 rounded-2xl"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6">
-        <!-- Section Header -->
         <div class="reveal mb-16">
             <div class="flex items-center gap-3 mb-4">
                 <div class="w-10 h-10 rounded-xl bg-blue-600/10 border border-blue-600/20 flex items-center justify-center">
@@ -562,7 +634,7 @@
             </h2>
         </div>
 
-        <div class="grid lg:grid-cols-5 gap-12">
+        <div class="grid lg:grid-cols-5 gap-12 items-start">
             <!-- Summary Text -->
             <div class="lg:col-span-3 reveal-left" style="transition-delay: 100ms;">
                 <div class="relative p-8 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow">
@@ -573,44 +645,41 @@
                 </div>
             </div>
 
-            <!-- Key Highlights -->
+            <!-- Creation Hands Artwork + Highlights -->
             <div class="lg:col-span-2 reveal-right" style="transition-delay: 200ms;">
-                <div class="space-y-4">
-                    <div class="p-5 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow flex items-start gap-4 group hover:border-blue-600/20 transition-colors">
-                        <div class="w-10 h-10 rounded-xl bg-blue-600/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                            <i data-lucide="brain" class="w-5 h-5 text-blue-400"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-sm font-medium text-white mb-1">Machine Learning</h4>
-                            <p class="text-xs text-neutral-500 leading-relaxed">End-to-end model development & deployment</p>
-                        </div>
+                <!-- Hands Artwork -->
+                <div class="hands-artwork rounded-2xl overflow-hidden mb-5 border border-white/[0.06] glow-border" style="border-radius: 1rem;">
+                    <img src="https://z-cdn-media.chatglm.cn/files/9d7f28b1-0ee0-40c4-b603-b83ed8151388.jpg?auth_key=1887642074-1f94126b3c3b4bf095af61d74c410422-0-7905f33453aa8a689ef3a4c87f536eb9" alt="The Creation of Adam - Hands" class="w-full h-48 object-cover object-center">
+                    <div class="absolute bottom-3 left-3 z-10 px-3 py-1.5 rounded-lg bg-black/60 backdrop-blur-sm border border-white/10">
+                        <span class="text-[10px] text-neutral-300 italic">"Intelligence meets Intuition"</span>
                     </div>
-                    <div class="p-5 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow flex items-start gap-4 group hover:border-purple-600/20 transition-colors">
-                        <div class="w-10 h-10 rounded-xl bg-purple-600/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                            <i data-lucide="sparkles" class="w-5 h-5 text-purple-400"></i>
+                </div>
+
+                <!-- Key Highlights Grid -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="p-4 rounded-xl bg-[#0A0A0A] border border-white/[0.06] card-glow flex flex-col items-center text-center group hover:border-blue-600/20 transition-colors">
+                        <div class="w-9 h-9 rounded-lg bg-blue-600/10 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                            <i data-lucide="brain" class="w-4 h-4 text-blue-400"></i>
                         </div>
-                        <div>
-                            <h4 class="text-sm font-medium text-white mb-1">Generative AI</h4>
-                            <p class="text-xs text-neutral-500 leading-relaxed">LLM apps, RAG & multi-agent systems</p>
-                        </div>
+                        <h4 class="text-xs font-medium text-white">Machine Learning</h4>
                     </div>
-                    <div class="p-5 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow flex items-start gap-4 group hover:border-orange-500/20 transition-colors">
-                        <div class="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                            <i data-lucide="workflow" class="w-5 h-5 text-orange-400"></i>
+                    <div class="p-4 rounded-xl bg-[#0A0A0A] border border-white/[0.06] card-glow flex flex-col items-center text-center group hover:border-purple-600/20 transition-colors">
+                        <div class="w-9 h-9 rounded-lg bg-purple-600/10 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                            <i data-lucide="sparkles" class="w-4 h-4 text-purple-400"></i>
                         </div>
-                        <div>
-                            <h4 class="text-sm font-medium text-white mb-1">Agentic AI</h4>
-                            <p class="text-xs text-neutral-500 leading-relaxed">Intelligent automation & orchestration</p>
-                        </div>
+                        <h4 class="text-xs font-medium text-white">Generative AI</h4>
                     </div>
-                    <div class="p-5 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow flex items-start gap-4 group hover:border-cyan-500/20 transition-colors">
-                        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                            <i data-lucide="server" class="w-5 h-5 text-cyan-400"></i>
+                    <div class="p-4 rounded-xl bg-[#0A0A0A] border border-white/[0.06] card-glow flex flex-col items-center text-center group hover:border-orange-500/20 transition-colors">
+                        <div class="w-9 h-9 rounded-lg bg-orange-500/10 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                            <i data-lucide="workflow" class="w-4 h-4 text-orange-400"></i>
                         </div>
-                        <div>
-                            <h4 class="text-sm font-medium text-white mb-1">Scalable Pipelines</h4>
-                            <p class="text-xs text-neutral-500 leading-relaxed">Cloud-based data & ML pipelines</p>
+                        <h4 class="text-xs font-medium text-white">Agentic AI</h4>
+                    </div>
+                    <div class="p-4 rounded-xl bg-[#0A0A0A] border border-white/[0.06] card-glow flex flex-col items-center text-center group hover:border-cyan-500/20 transition-colors">
+                        <div class="w-9 h-9 rounded-lg bg-cyan-500/10 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                            <i data-lucide="server" class="w-4 h-4 text-cyan-400"></i>
                         </div>
+                        <h4 class="text-xs font-medium text-white">Scalable Pipelines</h4>
                     </div>
                 </div>
             </div>
@@ -622,9 +691,12 @@
 <section id="skills" class="relative py-24 overflow-hidden">
     <div class="absolute top-0 left-0 right-0 section-divider"></div>
     <div class="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[120px]"></div>
+    <!-- Geometric accents -->
+    <div class="geo-ring w-[200px] h-[200px] top-[10%] right-[5%] z-0" style="animation: spin-slow 50s linear infinite; border-color: rgba(168,85,247,0.06);"></div>
+    <div class="geo-ring w-[150px] h-[150px] bottom-[15%] left-[3%] z-0" style="animation: rotate-slow-reverse 45s linear infinite; border-color: rgba(59,130,246,0.06);"></div>
+    <div class="morph-blob absolute w-[250px] h-[250px] bottom-[10%] right-[10%] z-0" style="animation: morph 10s ease-in-out infinite 2s;"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6">
-        <!-- Section Header -->
         <div class="reveal mb-16">
             <div class="flex items-center gap-3 mb-4">
                 <div class="w-10 h-10 rounded-xl bg-purple-600/10 border border-purple-600/20 flex items-center justify-center">
@@ -637,9 +709,7 @@
             </h2>
         </div>
 
-        <!-- Skills Grid -->
         <div class="grid md:grid-cols-2 gap-6">
-
             <!-- Programming & Query Languages -->
             <div class="reveal-scale p-6 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow hover:border-blue-600/20 transition-all" style="transition-delay: 100ms;">
                 <div class="flex items-center gap-3 mb-4">
@@ -809,7 +879,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
@@ -818,9 +887,12 @@
 <section id="experience" class="relative py-24 overflow-hidden">
     <div class="absolute top-0 left-0 right-0 section-divider"></div>
     <div class="absolute top-1/3 left-0 w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-[120px]"></div>
+    <!-- Decorative -->
+    <div class="absolute top-[15%] right-[8%] w-3 h-3 rounded-full bg-blue-500/30 float-2"></div>
+    <div class="absolute top-[60%] left-[5%] w-2 h-2 rounded-full bg-purple-500/30 float-1"></div>
+    <div class="absolute bottom-[20%] right-[15%] w-2.5 h-2.5 rounded-full bg-orange-500/20 float-3"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6">
-        <!-- Section Header -->
         <div class="reveal mb-16">
             <div class="flex items-center gap-3 mb-4">
                 <div class="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center">
@@ -833,19 +905,13 @@
             </h2>
         </div>
 
-        <!-- Experience Card -->
         <div class="reveal max-w-4xl">
             <div class="relative">
-                <!-- Timeline line -->
                 <div class="absolute left-[7px] top-6 bottom-0 w-px bg-gradient-to-b from-blue-600/50 to-transparent"></div>
-
-                <!-- Timeline dot -->
-                <div class="relative pl-8 mb-0">
+                <div class="relative pl-8">
                     <div class="absolute left-0 top-2 w-[15px] h-[15px] rounded-full bg-blue-600 border-4 border-[#050505]" style="box-shadow: 0 0 12px rgba(59,130,246,0.5);"></div>
 
-                    <!-- Experience Content -->
                     <div class="p-8 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow">
-                        <!-- Header -->
                         <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-6">
                             <div>
                                 <h3 class="text-xl font-medium text-white mb-1">Data Scientist</h3>
@@ -857,7 +923,6 @@
                             </div>
                         </div>
 
-                        <!-- Responsibilities -->
                         <div class="space-y-3">
                             <div class="flex gap-3 items-start group">
                                 <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0 group-hover:bg-blue-400 transition-colors"></div>
@@ -920,9 +985,12 @@
     <div class="absolute top-0 left-0 right-0 section-divider"></div>
     <div class="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-purple-600/5 rounded-full blur-[120px]"></div>
     <div class="absolute top-1/4 left-0 w-[300px] h-[300px] bg-blue-600/5 rounded-full blur-[100px]"></div>
+    <!-- Decorative dots -->
+    <div class="absolute top-[20%] left-[10%] w-2 h-2 rounded-full bg-cyan-400/20 float-1"></div>
+    <div class="absolute top-[40%] right-[6%] w-3 h-3 rounded-full bg-purple-400/15 float-2"></div>
+    <div class="absolute bottom-[30%] left-[15%] w-2 h-2 rounded-full bg-blue-400/20 float-3"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6">
-        <!-- Section Header -->
         <div class="reveal mb-16">
             <div class="flex items-center gap-3 mb-4">
                 <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
@@ -937,10 +1005,9 @@
 
         <!-- Project 1 -->
         <div class="reveal mb-8" style="transition-delay: 100ms;">
-            <div class="project-card relative">
+            <div class="project-card">
                 <div class="project-number">01</div>
                 <div class="relative z-10 p-8 md:p-10">
-                    <!-- Project Header -->
                     <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
                         <div class="flex-1">
                             <div class="flex items-center gap-2 mb-3">
@@ -953,8 +1020,6 @@
                             <i data-lucide="chevron-down" class="w-5 h-5 text-neutral-400 accordion-icon"></i>
                         </button>
                     </div>
-
-                    <!-- Objective -->
                     <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] mb-4">
                         <div class="flex items-center gap-2 mb-2">
                             <i data-lucide="target" class="w-4 h-4 text-blue-400"></i>
@@ -962,47 +1027,19 @@
                         </div>
                         <p class="text-sm text-neutral-300 leading-relaxed">Developed an autonomous AI-powered retail assistant system to enhance customer experience, streamline inventory management, and support sales operations. The system leverages multi-agent architecture to automate customer interactions, optimize pricing strategies, and provide real-time business insights for retail decision-making.</p>
                     </div>
-
-                    <!-- Accordion Content -->
                     <div id="project1-content" class="accordion-content">
                         <div class="pt-4">
                             <h4 class="text-xs font-medium text-neutral-400 uppercase tracking-wider mb-4">Roles & Responsibilities</h4>
                             <div class="space-y-2.5 mb-6">
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Designed and implemented a multi-agent system for customer service, inventory management, and sales support.</p>
-                                </div>
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Built autonomous customer interaction workflows using LangChain and OpenAI GPT.</p>
-                                </div>
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Developed a product recommendation engine based on customer preferences and purchase behavior.</p>
-                                </div>
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Created an inventory optimization system with demand forecasting and automated restocking alerts.</p>
-                                </div>
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Implemented a customer service agent handling queries, order tracking, and issue resolution.</p>
-                                </div>
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Built a dynamic pricing module based on demand, competition, and inventory levels.</p>
-                                </div>
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Developed a retail operations dashboard for monitoring KPIs and performance.</p>
-                                </div>
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Automated report generation for business insights and strategic planning.</p>
-                                </div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Designed and implemented a multi-agent system for customer service, inventory management, and sales support.</p></div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Built autonomous customer interaction workflows using LangChain and OpenAI GPT.</p></div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Developed a product recommendation engine based on customer preferences and purchase behavior.</p></div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Created an inventory optimization system with demand forecasting and automated restocking alerts.</p></div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Implemented a customer service agent handling queries, order tracking, and issue resolution.</p></div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Built a dynamic pricing module based on demand, competition, and inventory levels.</p></div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Developed a retail operations dashboard for monitoring KPIs and performance.</p></div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-blue-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Automated report generation for business insights and strategic planning.</p></div>
                             </div>
-
-                            <!-- Tools -->
                             <div class="flex items-center gap-2 flex-wrap">
                                 <i data-lucide="wrench" class="w-3.5 h-3.5 text-neutral-500"></i>
                                 <span class="text-[11px] text-neutral-500 uppercase tracking-wider mr-1">Tools:</span>
@@ -1021,10 +1058,9 @@
 
         <!-- Project 2 -->
         <div class="reveal mb-8" style="transition-delay: 200ms;">
-            <div class="project-card relative">
+            <div class="project-card">
                 <div class="project-number">02</div>
                 <div class="relative z-10 p-8 md:p-10">
-                    <!-- Project Header -->
                     <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
                         <div class="flex-1">
                             <div class="flex items-center gap-2 mb-3">
@@ -1037,8 +1073,6 @@
                             <i data-lucide="chevron-down" class="w-5 h-5 text-neutral-400 accordion-icon"></i>
                         </button>
                     </div>
-
-                    <!-- Objective -->
                     <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] mb-4">
                         <div class="flex items-center gap-2 mb-2">
                             <i data-lucide="target" class="w-4 h-4 text-green-400"></i>
@@ -1046,43 +1080,18 @@
                         </div>
                         <p class="text-sm text-neutral-300 leading-relaxed">Built an end-to-end AI system to automate loan application processing, including document extraction, credit risk assessment, fraud detection, and decision reporting. The solution improves efficiency, reduces manual effort, and ensures compliance with financial regulations through explainable AI models.</p>
                     </div>
-
-                    <!-- Accordion Content -->
                     <div id="project2-content" class="accordion-content">
                         <div class="pt-4">
                             <h4 class="text-xs font-medium text-neutral-400 uppercase tracking-wider mb-4">Roles & Responsibilities</h4>
                             <div class="space-y-2.5 mb-6">
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Processed loan documents such as income statements, credit reports, and bank statements from secure channels.</p>
-                                </div>
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Implemented LLM-based document parsing using GPT-4 and Claude for structured data extraction.</p>
-                                </div>
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Built credit risk models using XGBoost and Random Forest for default prediction.</p>
-                                </div>
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Designed a RAG-based pipeline using vector databases for contextual document validation.</p>
-                                </div>
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Developed a fraud detection module using anomaly detection and cross-verification techniques.</p>
-                                </div>
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Generated automated loan assessment reports with risk scores and approval recommendations.</p>
-                                </div>
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Ensured compliance with financial regulations and improved decision explainability.</p>
-                                </div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Processed loan documents such as income statements, credit reports, and bank statements from secure channels.</p></div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Implemented LLM-based document parsing using GPT-4 and Claude for structured data extraction.</p></div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Built credit risk models using XGBoost and Random Forest for default prediction.</p></div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Designed a RAG-based pipeline using vector databases for contextual document validation.</p></div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Developed a fraud detection module using anomaly detection and cross-verification techniques.</p></div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Generated automated loan assessment reports with risk scores and approval recommendations.</p></div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-green-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Ensured compliance with financial regulations and improved decision explainability.</p></div>
                             </div>
-
-                            <!-- Tools -->
                             <div class="flex items-center gap-2 flex-wrap">
                                 <i data-lucide="wrench" class="w-3.5 h-3.5 text-neutral-500"></i>
                                 <span class="text-[11px] text-neutral-500 uppercase tracking-wider mr-1">Tools:</span>
@@ -1104,10 +1113,9 @@
 
         <!-- Project 3 -->
         <div class="reveal mb-8" style="transition-delay: 300ms;">
-            <div class="project-card relative">
+            <div class="project-card">
                 <div class="project-number">03</div>
                 <div class="relative z-10 p-8 md:p-10">
-                    <!-- Project Header -->
                     <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
                         <div class="flex-1">
                             <div class="flex items-center gap-2 mb-3">
@@ -1120,8 +1128,6 @@
                             <i data-lucide="chevron-down" class="w-5 h-5 text-neutral-400 accordion-icon"></i>
                         </button>
                     </div>
-
-                    <!-- Objective -->
                     <div class="p-4 rounded-xl bg-white/[0.02] border border-white/[0.04] mb-4">
                         <div class="flex items-center gap-2 mb-2">
                             <i data-lucide="target" class="w-4 h-4 text-pink-400"></i>
@@ -1129,43 +1135,18 @@
                         </div>
                         <p class="text-sm text-neutral-300 leading-relaxed">Developed machine learning models to segment customers based on purchasing behavior and demographics. The solution enables targeted marketing, personalized recommendations, and improved customer retention strategies through data-driven insights.</p>
                     </div>
-
-                    <!-- Accordion Content -->
                     <div id="project3-content" class="accordion-content">
                         <div class="pt-4">
                             <h4 class="text-xs font-medium text-neutral-400 uppercase tracking-wider mb-4">Roles & Responsibilities</h4>
                             <div class="space-y-2.5 mb-6">
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Analyzed customer transaction data, browsing behavior, and demographic information.</p>
-                                </div>
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Engineered RFM features and customer lifetime value metrics.</p>
-                                </div>
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Built segmentation models using clustering and ensemble learning techniques.</p>
-                                </div>
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Developed dynamic pricing strategies for different customer segments.</p>
-                                </div>
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Implemented a customer churn prediction model for retention planning.</p>
-                                </div>
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Created a customer analytics dashboard for business teams.</p>
-                                </div>
-                                <div class="flex gap-3 items-start">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div>
-                                    <p class="text-sm text-neutral-300">Built a real-time segmentation system for personalization.</p>
-                                </div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Analyzed customer transaction data, browsing behavior, and demographic information.</p></div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Engineered RFM features and customer lifetime value metrics.</p></div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Built segmentation models using clustering and ensemble learning techniques.</p></div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Developed dynamic pricing strategies for different customer segments.</p></div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Implemented a customer churn prediction model for retention planning.</p></div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Created a customer analytics dashboard for business teams.</p></div>
+                                <div class="flex gap-3 items-start"><div class="w-1.5 h-1.5 rounded-full bg-pink-400/60 mt-2 flex-shrink-0"></div><p class="text-sm text-neutral-300">Built a real-time segmentation system for personalization.</p></div>
                             </div>
-
-                            <!-- Tools -->
                             <div class="flex items-center gap-2 flex-wrap">
                                 <i data-lucide="wrench" class="w-3.5 h-3.5 text-neutral-500"></i>
                                 <span class="text-[11px] text-neutral-500 uppercase tracking-wider mr-1">Tools:</span>
@@ -1187,9 +1168,9 @@
 <section id="education" class="relative py-24 overflow-hidden">
     <div class="absolute top-0 left-0 right-0 section-divider"></div>
     <div class="absolute top-1/2 right-1/4 w-[400px] h-[400px] bg-orange-500/5 rounded-full blur-[120px]"></div>
+    <div class="geo-ring w-[180px] h-[180px] top-[20%] left-[8%] z-0" style="animation: spin-slow 55s linear infinite; border-color: rgba(34,197,94,0.06);"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto px-6">
-        <!-- Section Header -->
         <div class="reveal mb-16">
             <div class="flex items-center gap-3 mb-4">
                 <div class="w-10 h-10 rounded-xl bg-green-500/10 border border-green-500/20 flex items-center justify-center">
@@ -1204,9 +1185,7 @@
 
         <div class="reveal max-w-3xl" style="transition-delay: 100ms;">
             <div class="relative pl-8">
-                <!-- Timeline line -->
                 <div class="absolute left-[7px] top-6 bottom-0 w-px bg-gradient-to-b from-green-500/50 to-transparent"></div>
-                <!-- Timeline dot -->
                 <div class="absolute left-0 top-2 w-[15px] h-[15px] rounded-full bg-green-500 border-4 border-[#050505]" style="box-shadow: 0 0 12px rgba(34,197,94,0.5);"></div>
 
                 <div class="p-8 rounded-2xl bg-[#0A0A0A] border border-white/[0.06] card-glow hover:border-green-500/20 transition-all">
@@ -1235,12 +1214,23 @@
 <!-- ==================== CTA / CONTACT SECTION ==================== -->
 <section class="relative py-24 overflow-hidden">
     <div class="absolute top-0 left-0 right-0 section-divider"></div>
-    <div class="absolute inset-0 stars-bg opacity-30"></div>
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/8 rounded-full blur-[120px]"></div>
+    <!-- Night scene background for CTA -->
+    <div class="cta-bg"></div>
+    <!-- Extra stars -->
+    <div class="absolute inset-0 z-[1]">
+        <div class="twinkle-star" style="top:15%;left:20%;--duration:3s;--delay:0.5s;"></div>
+        <div class="twinkle-star" style="top:30%;left:60%;--duration:2.5s;--delay:1.2s;"></div>
+        <div class="twinkle-star" style="top:50%;left:80%;--duration:4s;--delay:0.8s;"></div>
+        <div class="twinkle-star" style="top:70%;left:35%;--duration:3.5s;--delay:2s;"></div>
+        <div class="twinkle-star" style="top:20%;left:45%;--duration:2.8s;--delay:1.5s;"></div>
+    </div>
+    <!-- Geometric rings -->
+    <div class="geo-ring w-[250px] h-[250px] top-[10%] left-[5%] z-[1]" style="animation: spin-slow 45s linear infinite; border-color: rgba(255,255,255,0.04);"></div>
+    <div class="geo-ring w-[300px] h-[300px] bottom-[5%] right-[5%] z-[1]" style="animation: rotate-slow-reverse 50s linear infinite; border-color: rgba(255,255,255,0.03);"></div>
 
     <div class="relative z-10 max-w-3xl mx-auto px-6 text-center">
         <div class="reveal">
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] mb-8">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/[0.08] bg-white/[0.03] mb-8 backdrop-blur-sm">
                 <i data-lucide="zap" class="w-3.5 h-3.5 text-yellow-400"></i>
                 <span class="text-xs text-neutral-400 font-medium">Let's Connect</span>
             </div>
@@ -1251,9 +1241,12 @@
                 I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="mailto:Shivareddyr100@gmail.com" class="group px-8 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-xl transition-all hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(37,99,235,0.4)] flex items-center gap-2.5">
-                    <i data-lucide="mail" class="w-5 h-5"></i>
-                    Shivareddyr100@gmail.com
+                <a href="mailto:Shivareddyr100@gmail.com" class="group px-8 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-xl transition-all hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(37,99,235,0.4)] flex items-center gap-2.5 overflow-hidden">
+                    <span class="relative z-10 flex items-center gap-2.5">
+                        <i data-lucide="mail" class="w-5 h-5"></i>
+                        Shivareddyr100@gmail.com
+                    </span>
+                    <div class="absolute inset-0 shimmer-line"></div>
                 </a>
                 <a href="tel:7899658797" class="px-8 py-3.5 border border-white/10 hover:border-white/20 hover:bg-white/5 text-white font-medium rounded-xl transition-all flex items-center gap-2.5">
                     <i data-lucide="phone" class="w-5 h-5"></i>
@@ -1289,18 +1282,16 @@
 
 
 <script>
-// Initialize Lucide Icons
 lucide.createIcons();
 
-// ==================== SCROLL PROGRESS ====================
+// Scroll Progress
 window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = (scrollTop / docHeight) * 100;
-    document.getElementById('scroll-progress').style.width = progress + '%';
+    document.getElementById('scroll-progress').style.width = (scrollTop / docHeight * 100) + '%';
 });
 
-// ==================== BACK TO TOP ====================
+// Back to Top
 const backToTop = document.getElementById('back-to-top');
 window.addEventListener('scroll', () => {
     if (window.scrollY > 600) {
@@ -1313,11 +1304,9 @@ window.addEventListener('scroll', () => {
         backToTop.style.pointerEvents = 'none';
     }
 });
-backToTop.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-// ==================== MOBILE NAV ====================
+// Mobile Nav
 const mobileNav = document.getElementById('mobile-nav');
 document.getElementById('mobile-menu-btn').addEventListener('click', () => {
     mobileNav.classList.add('open');
@@ -1334,99 +1323,72 @@ document.querySelectorAll('.mobile-nav-link').forEach(link => {
     });
 });
 
-// ==================== SCROLL REVEAL ====================
-const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+// Scroll Reveal
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('visible');
     });
 }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
-revealElements.forEach(el => revealObserver.observe(el));
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => revealObserver.observe(el));
 
-// ==================== PROGRESS BARS ====================
-const progressBars = document.querySelectorAll('.progress-fill');
+// Progress Bars
 const progressObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const width = entry.target.getAttribute('data-width');
-            entry.target.style.width = width;
-        }
+        if (entry.isIntersecting) entry.target.style.width = entry.target.getAttribute('data-width');
     });
 }, { threshold: 0.5 });
-progressBars.forEach(bar => progressObserver.observe(bar));
+document.querySelectorAll('.progress-fill').forEach(bar => progressObserver.observe(bar));
 
-// ==================== ACTIVE NAV LINK ====================
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-link[data-section]');
+// Active Nav
 const navObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             const id = entry.target.getAttribute('id');
-            navLinks.forEach(link => {
+            document.querySelectorAll('.nav-link[data-section]').forEach(link => {
                 link.classList.toggle('active', link.getAttribute('data-section') === id);
             });
         }
     });
 }, { threshold: 0.3, rootMargin: '-20% 0px -60% 0px' });
-sections.forEach(section => navObserver.observe(section));
+document.querySelectorAll('section[id]').forEach(s => navObserver.observe(s));
 
-// ==================== ACCORDION ====================
+// Accordion
 document.querySelectorAll('.accordion-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-        const targetId = btn.getAttribute('data-target');
-        const content = document.getElementById(targetId);
+        const content = document.getElementById(btn.getAttribute('data-target'));
         const icon = btn.querySelector('.accordion-icon');
         const isOpen = content.classList.contains('open');
-
-        // Close all
         document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('open'));
         document.querySelectorAll('.accordion-icon').forEach(i => i.classList.remove('open'));
-
-        // Toggle current
-        if (!isOpen) {
-            content.classList.add('open');
-            icon.classList.add('open');
-        }
+        if (!isOpen) { content.classList.add('open'); icon.classList.add('open'); }
     });
 });
 
-// ==================== CARD GLOW EFFECT ====================
+// Card Glow
 document.querySelectorAll('.card-glow').forEach(card => {
     card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
-        card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--mouse-y', (e.clientY - r.top) + 'px');
     });
 });
 
-// ==================== COPY TO CLIPBOARD ====================
+// Copy to Clipboard
 function copyToClipboard(text, message) {
-    navigator.clipboard.writeText(text).then(() => {
-        showToast(message);
-    }).catch(() => {
-        // Fallback
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        showToast(message);
+    navigator.clipboard.writeText(text).then(() => showToast(message)).catch(() => {
+        const ta = document.createElement('textarea'); ta.value = text;
+        document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+        document.body.removeChild(ta); showToast(message);
     });
 }
-
 function showToast(message) {
     const toast = document.getElementById('toast');
-    const toastMsg = document.getElementById('toast-message');
-    toastMsg.textContent = message;
+    document.getElementById('toast-message').textContent = message;
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
-// ==================== COUNTER ANIMATION ====================
-const counters = document.querySelectorAll('[data-count]');
+// Counter Animation
 const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -1435,41 +1397,33 @@ const counterObserver = new IntersectionObserver((entries) => {
             const increment = target / 40;
             const timer = setInterval(() => {
                 current += increment;
-                if (current >= target) {
-                    entry.target.textContent = target + '+';
-                    clearInterval(timer);
-                } else {
-                    entry.target.textContent = Math.floor(current) + '+';
-                }
+                if (current >= target) { entry.target.textContent = target + '+'; clearInterval(timer); }
+                else entry.target.textContent = Math.floor(current) + '+';
             }, 40);
             counterObserver.unobserve(entry.target);
         }
     });
 }, { threshold: 0.5 });
-counters.forEach(c => counterObserver.observe(c));
+document.querySelectorAll('[data-count]').forEach(c => counterObserver.observe(c));
 
-// ==================== NAVBAR HIDE ON SCROLL DOWN ====================
+// Navbar hide on scroll
 let lastScrollY = 0;
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
-    const currentScrollY = window.scrollY;
-    if (currentScrollY > lastScrollY && currentScrollY > 200) {
-        navbar.style.transform = 'translateX(-50%) translateY(-120%)';
-        navbar.style.transition = 'transform 0.4s cubic-bezier(0.2,0.8,0.2,1)';
-    } else {
-        navbar.style.transform = 'translateX(-50%) translateY(0)';
-        navbar.style.transition = 'transform 0.4s cubic-bezier(0.2,0.8,0.2,1)';
-    }
-    lastScrollY = currentScrollY;
+    const y = window.scrollY;
+    navbar.style.transform = y > lastScrollY && y > 200
+        ? 'translateX(-50%) translateY(-120%)'
+        : 'translateX(-50%) translateY(0)';
+    navbar.style.transition = 'transform 0.4s cubic-bezier(0.2,0.8,0.2,1)';
+    lastScrollY = y;
 });
 
-// ==================== OPEN FIRST PROJECT BY DEFAULT ====================
+// Open first project by default
 setTimeout(() => {
-    const firstContent = document.getElementById('project1-content');
-    const firstIcon = firstContent.previousElementSibling?.querySelector?.('.accordion-icon')
-        || document.querySelector('[data-target="project1-content"] .accordion-icon');
-    if (firstContent) firstContent.classList.add('open');
-    if (firstIcon) firstIcon.classList.add('open');
+    const c = document.getElementById('project1-content');
+    const i = document.querySelector('[data-target="project1-content"] .accordion-icon');
+    if (c) c.classList.add('open');
+    if (i) i.classList.add('open');
 }, 1500);
 </script>
 
